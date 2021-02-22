@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+
+  # MySQL Service
+  mysql:
+    container_name: sw_db
+    image: mysql:8.0
+    restart: unless-stopped
+    ports:
+        - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "smart_warehouse_db"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "root"
+    volumes:
+        - sw_data:/var/lib/mysql
+    networks:
+      - sw_network
+
+  # Web application
+  web:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    image: sw_be
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    ports:
+      - 8000:8000
+    volumes:
+      - ./:/app
+    networks:
+      - sw_network
+
+# Docker Volumes
+volumes:
+  sw_data:
+    driver: local
+
+# Docker Networks
+networks:
+  sw_network:
+    driver: bridge
