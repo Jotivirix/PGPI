@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+
+  # Angular app
+  angular-app:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    image: sw_fe
+    restart: unless-stopped
+    ports:
+      - 4200:4200
+    volumes:
+      - ./:/usr/src/app

@@ -4,7 +4,6 @@ services:
 
   # MySQL Service
   mysql:
-    container_name: sw_db
     image: mysql:8.0
     restart: unless-stopped
     ports:
@@ -21,7 +20,6 @@ services:
 
   # Web application
   web:
-    container_name: sw_be
     build:
         context: .
         dockerfile: Dockerfile
