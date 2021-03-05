@@ -21,6 +21,7 @@ services:
 
   # Web application
   web:
+    container_name: sw_be
     build:
         context: .
         dockerfile: Dockerfile
