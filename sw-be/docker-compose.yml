@@ -15,6 +15,7 @@ services:
       MYSQL_PASSWORD: "root"
     volumes:
         - sw_data:/var/lib/mysql
+        - ./mysqlconf:/etc/mysql/conf.d
     networks:
       - sw_network
 
