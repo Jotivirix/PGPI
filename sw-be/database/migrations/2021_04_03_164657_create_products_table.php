@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->integer('stock');
             $table->integer('picking');
             $table->integer('warning_stock_limit');
+            $table->string('image');
             $table->integer('provider_id');
             $table->integer('location_id');
             $table->timestamps();
