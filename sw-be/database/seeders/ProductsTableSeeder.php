@@ -10,7 +10,7 @@ class ProductsTableSeeder extends CsvSeeder
     public function __construct()
 	{
 		$this->table = 'products';
-		$this->filename = base_path().'/database/seeds/csvs/products.csv';
+		$this->filename = base_path().'/public/database/seeds/csvs/products.csv';
 	}
 
 	public function run()
