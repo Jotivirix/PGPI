@@ -25,7 +25,7 @@ services:
     image: sw_be
     restart: unless-stopped
     depends_on:
-      - mysql
+      - db
     ports:
       - 8000:8000
     volumes:
