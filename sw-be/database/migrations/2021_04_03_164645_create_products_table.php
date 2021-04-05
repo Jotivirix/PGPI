@@ -17,12 +17,12 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->bigInteger('reference');
             $table->string('description');
-            $table->integer('stock');
-            $table->integer('picking');
-            $table->integer('warning_stock_limit');
-            $table->string('image');
+            $table->integer('stock')->nullable();
+            $table->integer('picking')->nullable();
+            $table->integer('warning_stock_limit')->nullable();
+            $table->string('image')->nullable();
             $table->integer('provider_id');
-            $table->integer('location_id');
+            $table->integer('location_id')->nullable();
             $table->timestamps();
         });
     }
