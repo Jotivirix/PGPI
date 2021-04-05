@@ -3,19 +3,17 @@ version: '3.8'
 services:
 
   # MySQL Service
-  mysql:
-    image: mysql:8.0
+  db:
+    image: mysql:5.7
     restart: unless-stopped
     ports:
         - "3308:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_DATABASE: "smart_warehouse_db"
-      MYSQL_USER: "root"
-      MYSQL_PASSWORD: "root"
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: smart_warehouse_db
     volumes:
         - sw_data:/var/lib/mysql
-        - ./mysqlconf:/etc/mysql/conf.d
+        - ./mysqlconf/my.cnf:/etc/mysql/my.cnf
     networks:
       - sw_network
 
@@ -39,6 +37,7 @@ services:
 volumes:
   sw_data:
     driver: local
+
 
 # Docker Networks
 networks:
