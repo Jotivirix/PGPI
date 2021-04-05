@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CSVController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,5 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('uploadcsv', [CSVController::class,'importCSV']);
+Route::post('uploadcsv', [CSVController::class, 'importCSV']);
+Route::post('users/register', [UserController::class, 'register']);
+Route::post('users/login', [UserController::class, 'login']);
 
