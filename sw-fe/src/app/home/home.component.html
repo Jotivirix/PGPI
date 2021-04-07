@@ -18,12 +18,19 @@
             </ul>
         </div>
     </nav>
-    <div id="productos">
-        <div class="row">
-            <div class="col-2" *ngFor="let prod of productos | paginate: { itemsPerPage: 7, currentPage: p }">
-                {{prod.descripcion}}
+    <div class="container-fluid">
+        <div id="productos">
+            <div class="row">
+                <div class="col-2" *ngFor="let prod of productos" style="margin-top: 1em; margin-bottom: 1em;">
+                    <div class="card">
+                        <img class="card-img-top" src="..." alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text">{{prod.descripcion}}</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
 </div>
