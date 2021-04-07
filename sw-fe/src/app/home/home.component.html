@@ -21,7 +21,7 @@
     <div id="productos">
         <div class="row">
             <div class="col-2" *ngFor="let prod of productos | paginate: { itemsPerPage: 7, currentPage: p }">
-                {{prod.descripcion}}
+                {{prod.description}}
             </div>
         </div>
         <pagination-controls (pageChange)="p = $event"></pagination-controls>

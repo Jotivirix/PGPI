@@ -1,0 +1,21 @@
+reference,description,stock,picking,warning_stock,image,provider_id,location_id
+X11,Leche fresca,20,20,3,,1,A
+X12,Platanos canarios,20,20,9,,2,B
+X13,Platanos de Albacete,20,20,2,,3,C
+X14,Leche semidesnatada,20,20,8,,3,D
+X15,Fresón,20,20,2,,2,E
+X16,Yogur desnatado,20,20,10,,1,F
+X17,Agua Mineral,20,20,7,,4,G
+X18,Coca Cola Original,20,20,15,,4,H
+X19,Ron Barceló,20,20,12,,4,I
+X20,Red Bull Sin Azúcar,20,20,6,,2,J
+X21,Mandarinas,20,20,3,,1,K
+X22,Jamón Serrano,20,20,2,,1,L
+X23,Pepino,20,20,5,,1,M
+X24,Chocolate Nestlé,20,20,9,,3,N
+X25,Filetes de Merluza,20,20,4,,3,O
+X26,Cerveza,20,20,5,,1,P
+X27,Fanta Naranja,20,20,8,,2,Q
+X28,Detergente Ariel,20,20,2,,4,R
+X29,Barrita Energética Chocolate,20,20,3,,1,S
+X30,Lejía Perfumada,20,20,4,,1,T
