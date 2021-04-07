@@ -7,8 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  p: number = 1;
-
   productos = [
     {
       "reference": "X11",
@@ -1015,10 +1013,6 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  pageChange() {
-    console.log('Cambia');
   }
 
 }
