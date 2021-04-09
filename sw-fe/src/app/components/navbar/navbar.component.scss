@@ -1,0 +1,27 @@
+.navbar {
+    background-color: black;
+}
+
+.navbar h2 {
+    color: white;
+    text-align: right;
+}
+
+.navbar .logo {
+    margin-left: .6em;
+    margin-right: .6em;
+}
+
+li {
+    margin-left: .6em;
+    margin-right: .6em;
+    background-color: white;
+    min-width: 6em;
+    text-align: center;
+}
+
+li a {
+    color: black !important;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
