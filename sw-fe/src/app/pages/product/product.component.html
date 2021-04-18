@@ -1,26 +1,35 @@
 <app-navbar></app-navbar>
 
 <div class="container-fluid">
-  <div class="row" style="padding-top: 4em; padding-bottom: 4em; background-color: cadetblue;">
-    <div class="col-1"></div>
-    <div class="col-5">
-      <img class="card-img-top img-fluid" src="{{producto.image}}" onerror="this.src='../../assets/img/logo.jpeg';"
-        alt="LogoProducto" style="height: 100%;" />
+  <div class="row espacioTop">
+
+    <div class="col-lg-2"></div>
+
+    <div class="col-lg-3">
+      <img class="img card-img-top img-fluid imagenProducto" src="{{producto.image}}" onerror="this.src='../../assets/img/logo.jpeg';"
+        alt="LogoProducto"/>
     </div>
-    <div class="col-3 text-center" style="padding: 4em;">
+
+    <div class="col-lg-1"></div>
+
+    <div class="col-lg-2 cajaTexto">
       <h2>{{producto.description}}</h2>
       <br>
       <h3>Marca: {{producto.provider_id}}</h3>
     </div>
-    <div class="col-2 text-center" style="padding: 4em;">
+
+    <div class="col-lg-2 cajaTexto">
       <h5>Precio: {{producto.precio}}€</h5>
       <br>
       <select class="btn btn-sm btn-primary" style="margin-bottom: 2em;">
         <option selected>Cantidad</option>
         <option value="{{i}}" *ngFor="let n of numSequence(10); let i = index;">{{i+1}}</option>
       </select>
+      <br>
       <button class="btn btn-md btn-success">Añadir</button>
     </div>
-    <div class="col-1"></div>
+
+    <div class="col-lg-2"></div>
+
   </div>
 </div>
