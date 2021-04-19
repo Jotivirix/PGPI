@@ -48,8 +48,6 @@ class CSVController extends Controller
         }
         fclose($file);
 
-        // Artisan::call('db:seed', ['--class' => 'ProductsTableSeeder']);
-
         $response = array(
             'status' => 'success',
         );
