@@ -18,6 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('orders', [OrderController::class]);
+Route::resource('products', [OrderController::class]);
+
 Route::post('uploadcsv', [CSVController::class, 'importCSV']);
 Route::post('users/register', [UserController::class, 'register']);
 Route::post('users/login', [UserController::class, 'login']);
