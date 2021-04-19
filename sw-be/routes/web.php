@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
+
+use App\Http\Controllers\PDFController;
+use App\Http\Controllers\CSVController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +22,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('orders', OrderController::class);
+Route::resource('products', ProductController::class);
+
+Route::post('uploadcsv', [CSVController::class, 'importCSV']);
+Route::post('users/register', [UserController::class, 'register']);
+Route::post('users/login', [UserController::class, 'login']);
+
+
+Route::post('pdf/delivery_note', [PDFController::class, 'getDeliveryNote']);
+Route::post('pdf/tag', [PDFController::class, 'getTag']);
+
