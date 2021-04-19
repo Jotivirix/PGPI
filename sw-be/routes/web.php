@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
+
 use App\Http\Controllers\CSVController;
 use App\Http\Controllers\UserController;
 /*
@@ -18,8 +22,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('orders', [OrderController::class]);
-Route::resource('products', [OrderController::class]);
+Route::resource('orders', OrderController::class);
+Route::resource('products', ProductController::class);
 
 Route::post('uploadcsv', [CSVController::class, 'importCSV']);
 Route::post('users/register', [UserController::class, 'register']);

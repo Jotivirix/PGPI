@@ -3,19 +3,19 @@ version: '3.8'
 services:
 
   # MySQL Service
-  db:
-    image: mysql:5.7
-    restart: unless-stopped
-    ports:
-        - "3308:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: smart_warehouse_db
-    volumes:
-        - sw_data:/var/lib/mysql
-        - ./mysqlconf/my.cnf:/etc/mysql/my.cnf
-    networks:
-      - sw_network
+  # db:
+  #   image: mysql:5.7
+  #   restart: unless-stopped
+  #   ports:
+  #       - "3308:3306"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: smart_warehouse_db
+  #   volumes:
+  #       - sw_data:/var/lib/mysql
+  #       - ./mysqlconf/my.cnf:/etc/mysql/my.cnf
+  #   networks:
+  #     - sw_network
 
   # Web application
   web:
@@ -24,8 +24,8 @@ services:
         dockerfile: Dockerfile
     image: sw_be
     restart: unless-stopped
-    depends_on:
-      - db
+    # depends_on:
+    #   - db
     ports:
       - 8000:8000
     volumes:

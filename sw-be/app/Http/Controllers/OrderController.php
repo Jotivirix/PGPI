@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -13,7 +15,14 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::all();
+
+        $response = array(
+            'status' => 'success',
+            'orders' => $orders
+        );
+
+        return response()->json($response);
     }
 
     /**
@@ -34,7 +43,30 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Receive POST
+        $data = $request->input();
+
+        // The order is saved
+        $order = new Order();
+        $order->user_id = $data['user_id'];
+        $order->datetime = $data['datetime'];
+        $order->status = $data['status'];
+        $order->shipment_company_id = $data['shipment_company_id'];
+        $order->save();
+        $order->refresh();
+
+        // The products for that order are saved
+        $products = $data['products']; // Array of JSON with product_reference and product_amount
+        foreach ($products as $product) {
+            Product::saveOrderProducts($order->id, $product);
+        }
+
+        $response = array(
+            'status' => 'success',
+            'order' => $order
+        );
+
+        return response()->json($response);
     }
 
     /**
@@ -45,7 +77,23 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::find($id);
+
+        if ($order) {
+            $order->products;
+
+            $response = array(
+                'status' => 'success',
+                'order' => $order
+            );
+        } else {
+            $response = array(
+                'status' => 'error',
+                'message' => 'The order does not exist'
+            );
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -68,7 +116,38 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Receive POST
+        $data = $request->input();
+
+        // The order is saved
+        $order = Order::find($id);
+
+        if ($order) {
+            $order->user_id = $data['user_id'];
+            $order->datetime = $data['datetime'];
+            $order->status = $data['status'];
+            $order->shipment_company_id = $data['shipment_company_id'];
+            $order->save();
+            $order->refresh();
+
+            // The products for that order are saved
+            $products = $data['products']; // Array of JSON with product_reference and product_amount
+            foreach ($products as $product) {
+                Product::updateOrderProducts($order->id, $product);
+            }
+
+            $response = array(
+                'status' => 'success',
+                'order' => $order
+            );
+        } else {
+            $response = array(
+                'status' => 'error',
+                'message' => 'The order does not exist'
+            );
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -79,6 +158,21 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::find($id);
+        if ($order) {
+            $order->delete();
+
+            $response = array(
+                'status' => 'success',
+                'message' => 'The order was successfully deleted'
+            );
+        } else {
+            $response = array(
+                'status' => 'error',
+                'message' => 'The order does not exist'
+            );
+        }
+
+        return response()->json($response);
     }
 }
