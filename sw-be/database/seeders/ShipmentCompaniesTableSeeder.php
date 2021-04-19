@@ -5,12 +5,12 @@ namespace Database\Seeders;
 use Flynsarmy\CsvSeeder\CsvSeeder;
 use Illuminate\Support\Facades\DB;
 
-class ProductsTableSeeder extends CsvSeeder 
+class ShipmentCompaniesTableSeeder extends CsvSeeder
 {
     public function __construct()
 	{
-		$this->table = 'products';
-		$this->filename = base_path().'/public/database/seeders/seeds/csvs/products.csv';
+		$this->table = 'shipment_companies';
+		$this->filename = base_path().'/public/database/seeders/seeds/csvs/shipment_companies.csv';
 	}
 
 	public function run()
