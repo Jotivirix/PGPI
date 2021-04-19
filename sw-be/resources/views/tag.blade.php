@@ -32,7 +32,7 @@
 
 <body>
 
-    <h1>ID de Pedido: {{$order->id}}</h1>
+    <h1>Pedido: {{$order->id}}</h1>
     <h1>Tipo: {{$order->shipment_company->shipment_type}}</h1>
 
     <div>
