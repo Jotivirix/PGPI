@@ -55,10 +55,12 @@ class OrderController extends Controller
         $order->save();
         $order->refresh();
 
-        // The products for that order are saved
-        $products = $data['products']; // Array of JSON with product_reference and product_amount
-        foreach ($products as $product) {
-            Product::saveOrderProducts($order->id, $product);
+        if ($request->exists('products')) {
+            // The products for that order are saved
+            $products = $data['products']; // Array of JSON with product_reference and product_amount
+            foreach ($products as $product) {
+                Product::saveOrderProducts($order->id, json_decode($product));
+            }
         }
 
         $response = array(
@@ -133,7 +135,7 @@ class OrderController extends Controller
             // The products for that order are saved
             $products = $data['products']; // Array of JSON with product_reference and product_amount
             foreach ($products as $product) {
-                Product::updateOrderProducts($order->id, $product);
+                Product::updateOrderProducts($order->id, json_decode($product));
             }
 
             $response = array(

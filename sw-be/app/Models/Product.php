@@ -12,18 +12,18 @@ class Product extends Model
 
     public static function saveOrderProducts($order_id, $product)
     {
-        $product_db = Product::find($product->reference, 'reference');
+        $product_db = Product::where('reference', $product->reference)->first();
 
         DB::table('order_product')->insert([
             'order_id' => $order_id,
             'product_id' => $product_db->id,
-            'amount' => $product->id
+            'amount' => $product->amount
         ]);
     }
 
     public static function updateOrderProducts($order_id, $product)
     {
-        $product_db = Product::find($product->reference, 'reference');
+        $product_db = Product::where('reference', $product->reference)->first();
 
         if ($product->amount != 0) {
             DB::table('order_product')->updateOrInsert(
