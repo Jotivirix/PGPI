@@ -10,6 +10,10 @@ class Product extends Model
 {
     use HasFactory;
 
+    public function orders() {
+        return $this->belongsToMany(Order::class);
+    }
+
     public static function saveOrderProducts($order_id, $product)
     {
         $product_db = Product::where('reference', $product->reference)->first();
@@ -19,6 +23,8 @@ class Product extends Model
             'product_id' => $product_db->id,
             'amount' => $product->amount
         ]);
+
+        // Restar las unidades del producto en stock
     }
 
     public static function updateOrderProducts($order_id, $product)

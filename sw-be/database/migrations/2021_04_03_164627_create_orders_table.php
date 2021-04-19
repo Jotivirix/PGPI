@@ -18,6 +18,11 @@ class CreateOrdersTable extends Migration
             $table->integer('user_id');
             $table->dateTime('datetime');
             $table->string('status');
+            $table->integer('number');
+            $table->string('street');
+            $table->string('city');
+            $table->string('zip_code');
+            $table->string('country');
             $table->integer('shipment_company_id');
             $table->timestamps();
         });

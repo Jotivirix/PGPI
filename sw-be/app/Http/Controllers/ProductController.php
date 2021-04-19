@@ -21,7 +21,7 @@ class ProductController extends Controller
             'status' => 'success',
             'products' => $products
         );
-        return RESPONSE()->json($response);
+        return response()->json($response);
     }
 
     /**

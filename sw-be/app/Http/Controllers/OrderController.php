@@ -51,6 +51,11 @@ class OrderController extends Controller
         $order->user_id = $data['user_id'];
         $order->datetime = $data['datetime'];
         $order->status = $data['status'];
+        $order->number = $data['number'];
+        $order->street = $data['street'];
+        $order->city = $data['city'];
+        $order->zip_code = $data['zip_code'];
+        $order->country = $data['country'];
         $order->shipment_company_id = $data['shipment_company_id'];
         $order->save();
         $order->refresh();
@@ -128,6 +133,11 @@ class OrderController extends Controller
             $order->user_id = $data['user_id'];
             $order->datetime = $data['datetime'];
             $order->status = $data['status'];
+            $order->number = $data['number'];
+            $order->street = $data['street'];
+            $order->city = $data['city'];
+            $order->zip_code = $data['zip_code'];
+            $order->country = $data['country'];
             $order->shipment_company_id = $data['shipment_company_id'];
             $order->save();
             $order->refresh();
