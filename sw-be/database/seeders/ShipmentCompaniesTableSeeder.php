@@ -10,7 +10,7 @@ class ShipmentCompaniesTableSeeder extends CsvSeeder
     public function __construct()
 	{
 		$this->table = 'shipment_companies';
-		$this->filename = base_path().'/public/database/seeders/seeds/csvs/shipment_companies.csv';
+		$this->filename = base_path().'/public/database/seeds/csvs/shipment_companies.csv';
 	}
 
 	public function run()
