@@ -17,7 +17,7 @@ class CreateShipmentCompaniesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('shipment_type');
-            $table->date('delivery_date');
+            $table->integer('delivery_days');
             $table->timestamps();
         });
     }
