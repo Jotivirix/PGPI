@@ -30,7 +30,6 @@ Route::post('uploadcsv', [CSVController::class, 'importCSV']);
 Route::post('users/register', [UserController::class, 'register']);
 Route::post('users/login', [UserController::class, 'login']);
 
-
 Route::post('pdf/delivery_note', [PDFController::class, 'getDeliveryNote']);
 Route::post('pdf/tag', [PDFController::class, 'getTag']);
 
