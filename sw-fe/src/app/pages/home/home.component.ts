@@ -9,6 +9,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class HomeComponent implements OnInit {
 
   loading: boolean;
+  error = false;
 
   productosLocal = [
     {
@@ -1037,10 +1038,16 @@ export class HomeComponent implements OnInit {
   }
 
   async getProductos(): Promise<any> {
-    await this.productService.getProductos().subscribe((res) => {
-      this.productos = res.products;
-      console.log(this.productos);
-      this.loading = false;
-    });
+    await this.productService.getProductos().subscribe(
+      (res) => {
+        this.productos = res.products;
+        console.log(this.productos);
+        this.loading = false;
+      },
+      (err) => {
+        this.productos = []
+        this.loading = false;
+        this.error = true;
+      });
   }
 }
