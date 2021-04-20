@@ -1,28 +1,50 @@
 <div>
-    <app-navbar></app-navbar>
+  <app-navbar></app-navbar>
 
-    <!--Progress Bar-->
-    <barra-carga *ngIf="loading"></barra-carga>
+  <!--Progress Bar-->
+  <barra-carga *ngIf="loading"></barra-carga>
 
-    <div *ngIf="error">
-        <h2>Se ha producido un error al cargar los productos desde la base de datos</h2>
-    </div>
+  <div *ngIf="error">
+    <h2>Se ha producido un error al cargar los productos desde la base de datos</h2>
+  </div>
 
-    <div class="container-fluid">
-        <div id="productos">
+  <div class="container-fluid">
+    <div id="productos">
+      <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3" *ngFor="let prod of productos"
+          style="margin-top: 1em; margin-bottom: 1em;">
+          <div class="card producto">
             <div class="row">
-                <div class="col-sm-6 col-md-4 col-lg-4 col-xl-2" *ngFor="let prod of productos" style="margin-top: 1em; margin-bottom: 1em;">
-                    <div class="card producto">
-                        <img class="card-img-top img-fluid" src="{{prod.image}}"
-                            onerror="this.src='../../assets/img/logo.jpeg';" alt="LogoProducto" />
-                        <div class="card-body">
-                            <h5 class="card-text">{{prod.description}}</h5>
-                            <p class="card-text">Marca: {{prod.provider_id}}</p>
-                            <a href="/product/{{prod.id}}" class="btn btn-primary">Saber más</a>
-                        </div>
-                    </div>
-                </div>
+              <div class="col-2"></div>
+              <div class="col-8">
+                <img class="card-img-top img-fluid" src="{{prod.image}}"
+                  onerror="this.src='../../assets/img/logo.jpeg';" alt="LogoProducto" />
+              </div>
+              <div class="col-2"></div>
             </div>
+            <div class="card-body">
+              <p style="font-weight: bold;">{{(prod.description.length>20)? (prod.description |
+                slice:0:20)+'...':(prod.description)}}</p>
+              <p class="card-text">Marca: {{prod.provider_id}}</p>
+              <div class="row">
+                <div class="col-1"></div>
+                <div class="col-10">
+                  <a href="/product/{{prod.id}}" class="btn btn-md btn-primary btnProd">Saber más</a>
+                </div>
+                <div class="col-1"></div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-1"></div>
+                <div class="col-10">
+                  <button (click)="addToCart(prod.id)" class="btn btn-md btn-success btnProd">Agregar al carrito</button>
+                </div>
+                <div class="col-1"></div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

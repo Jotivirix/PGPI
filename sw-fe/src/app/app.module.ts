@@ -11,6 +11,9 @@ import { ProductComponent } from './pages/product/product.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BarraCargaComponent } from './components/barra-carga/barra-carga.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';
+import { CartComponent } from './pages/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,7 @@ import { BarraCargaComponent } from './components/barra-carga/barra-carga.compon
     ProductComponent,
     NavbarComponent,
     BarraCargaComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,6 +31,8 @@ import { BarraCargaComponent } from './components/barra-carga/barra-carga.compon
     HttpClientModule,
     BrowserAnimationsModule,
     MatProgressBarModule,
+    MatIconModule,
+    MatBadgeModule
   ],
   providers: [],
   bootstrap: [AppComponent],

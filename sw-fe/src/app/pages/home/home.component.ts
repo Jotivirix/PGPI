@@ -1015,6 +1015,8 @@ export class HomeComponent implements OnInit {
 
   productos: any;
 
+  shoppingCart:any = [];
+
   /*
   description: "LECHE DESNATADA"
   id: 1
@@ -1033,6 +1035,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //Metemos los items del carrito en session
+    localStorage.setItem('carrito', JSON.stringify(this.shoppingCart));
     //Si hay productos en cache
     if (this.getWithExpiry('productos_cache') !== null) {
       this.productos = this.getWithExpiry('productos_cache');
@@ -1045,16 +1049,19 @@ export class HomeComponent implements OnInit {
   }
 
   async getProductos(): Promise<any> {
-    await this.productService.getProductos().subscribe((res) => {
-      this.productos = res.products;
-      console.log(this.productos);
-      this.setWithExpiry('productos_cache', this.productos, 120000);
-      this.loading = false;
-    }, (err) => {
-        this.productos = []
+    await this.productService.getProductos().subscribe(
+      (res) => {
+        this.productos = res.products;
+        console.log(this.productos);
+        this.setWithExpiry('productos_cache', this.productos, 120000);
+        this.loading = false;
+      },
+      (err) => {
+        this.productos = [];
         this.loading = false;
         this.error = true;
-    });
+      }
+    );
   }
 
   setWithExpiry(key: string, value: any, ttl: any) {
@@ -1068,7 +1075,7 @@ export class HomeComponent implements OnInit {
     localStorage.setItem(key, JSON.stringify(item));
   }
 
-  getWithExpiry(key:string):any {
+  getWithExpiry(key: string): any {
     const itemStr = localStorage.getItem(key);
     // if the item doesn't exist, return null
     if (!itemStr) {
@@ -1084,5 +1091,13 @@ export class HomeComponent implements OnInit {
       return null;
     }
     return item.value;
+  }
+
+  async addToCart(idProducto: Number) {
+    await this.productService.getProductByID(idProducto).subscribe((res) => {
+      console.log(res.products);
+      this.shoppingCart.push(res.products);
+      localStorage.setItem('carrito', JSON.stringify(this.shoppingCart));
+    });
   }
 }

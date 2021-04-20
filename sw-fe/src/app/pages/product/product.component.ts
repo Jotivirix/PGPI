@@ -39,10 +39,10 @@ export class ProductComponent implements OnInit {
   }
 
   async getProducto(idProducto:Number){
-    await console.log(this._productService.getProductByID(idProducto).subscribe(res => {
+    await this._productService.getProductByID(idProducto).subscribe(res => {
         this.producto = res.products;
         this.loading = false;
-    }))
+    });
   }
 
   //function to return list of numbers from 0 to n-1

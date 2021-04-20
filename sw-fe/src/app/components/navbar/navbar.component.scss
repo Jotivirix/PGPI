@@ -12,6 +12,19 @@
     margin-right: .6em;
 }
 
+.cart:hover {
+  background-color: white !important;
+  cursor: pointer;
+  color: red !important;
+}
+
+.carritoLink {
+  background-color: white;
+  text-decoration: none;
+  margin-top: 12%;
+  color: black;
+}
+
 li {
     margin-left: .6em;
     margin-right: .6em;
