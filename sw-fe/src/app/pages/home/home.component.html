@@ -4,6 +4,10 @@
     <!--Progress Bar-->
     <barra-carga *ngIf="loading"></barra-carga>
 
+    <div *ngIf="error">
+        <h2>Se ha producido un error al cargar los productos desde la base de datos</h2>
+    </div>
+
     <div class="container-fluid">
         <div id="productos">
             <div class="row">

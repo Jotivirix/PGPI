@@ -8,6 +8,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class HomeComponent implements OnInit {
   loading: boolean;
+  error = false;
 
   productosLocal = [
     {
@@ -1049,6 +1050,10 @@ export class HomeComponent implements OnInit {
       console.log(this.productos);
       this.setWithExpiry('productos_cache', this.productos, 120000);
       this.loading = false;
+    }, (err) => {
+        this.productos = []
+        this.loading = false;
+        this.error = true;
     });
   }
 
