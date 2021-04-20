@@ -14,7 +14,7 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'product/:id/:proveedor',
+    path: 'product/:id',
     component: ProductComponent,
   }
 ];

@@ -1,5 +1,9 @@
 <div>
     <app-navbar></app-navbar>
+
+    <!--Progress Bar-->
+    <barra-carga *ngIf="loading"></barra-carga>
+
     <div class="container-fluid">
         <div id="productos">
             <div class="row">
@@ -10,7 +14,7 @@
                         <div class="card-body">
                             <h5 class="card-text">{{prod.description}}</h5>
                             <p class="card-text">Marca: {{prod.provider_id}}</p>
-                            <a href="/product/{{prod.reference}}/{{prod.provider_id}}" class="btn btn-primary">Saber más</a>
+                            <a href="/product/{{prod.id}}" class="btn btn-primary">Saber más</a>
                         </div>
                     </div>
                 </div>
