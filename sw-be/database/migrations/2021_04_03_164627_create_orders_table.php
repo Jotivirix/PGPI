@@ -24,7 +24,7 @@ class CreateOrdersTable extends Migration
             $table->string('zip_code');
             $table->string('country');
             $table->integer('shipment_company_id');
-            $table->integer('worker');
+            $table->integer('worker_id')->nullable();
             $table->timestamps();
         });
     }
