@@ -1,2 +1,9 @@
 <app-navbar></app-navbar>
 
+<div class="container-fluid">
+    <div *ngFor="let products of shoppingCartGrouped">
+      <p>
+        {{products[0].reference}} - {{products.length}}
+      </p>
+    </div>
+</div>

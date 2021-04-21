@@ -4,8 +4,12 @@
   <!--Progress Bar-->
   <barra-carga *ngIf="loading"></barra-carga>
 
-  <div *ngIf="error">
+  <div class="text-center" *ngIf="error">
     <h2>Se ha producido un error al cargar los productos desde la base de datos</h2>
+  </div>
+
+  <div class="text-center" *ngIf="vacio">
+    <h2>No hay productos en la base de datos. Agregue productos y recargue la página.</h2>
   </div>
 
   <div class="container-fluid">
