@@ -1,9 +1,10 @@
 <app-navbar></app-navbar>
-
+<!--Crear tabla y generar pedido-->
 <div class="container-fluid">
     <div *ngFor="let products of shoppingCartGrouped">
       <p>
         {{products[0].reference}} - {{products.length}}
       </p>
     </div>
+    <button class="btn btn-md btn-success">Finalizar Pedido</button>
 </div>
