@@ -2,20 +2,25 @@ import { Injectable, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { Product } from '../interfaces/product';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor(private http: HttpClient) { }
+  URL:string = '';
+
+  constructor(private http: HttpClient) {
+    this.URL = environment.URL + environment.port;
+  }
 
   getProductos():Observable<any> {
-    return this.http.get('http://localhost:8000/products');
+    return this.http.get(this.URL+'/products');
   }
 
   getProductByID(idProducto:Number):Observable<any> {
-    return this.http.get('http://localhost:8000/products/'+idProducto);
+    return this.http.get(this.URL + '/products/'+idProducto);
   }
 
 

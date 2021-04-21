@@ -10,17 +10,15 @@
     <div class="col-lg-4"></div>
 
     <div class="col-lg-3 text-center">
-      <img class="img card-img-top img-fluid imagenProducto" src="{{producto.image}}"
+      <img class="img card-img-top img-fluid imagenProducto" src="{{product.image}}"
         onerror="this.src='../../assets/img/logo.jpeg';" alt="LogoProducto" />
       <br>
-      <h2>{{producto.description}}</h2>
-      <h3>Marca: {{producto.provider_id}}</h3>
+      <h2>{{product.description}}</h2>
+      <h3>Marca: {{product.provider_id}}</h3>
     </div>
 
     <div class="col-lg-3 cajaTexto">
-      <h5>Precio: {{producto.precio}}€</h5>
-      <br>
-      <select class="btn btn-sm btn-primary" style="margin-bottom: 2em;">
+        <select class="btn btn-sm btn-primary" style="margin-bottom: 2em;">
         <option selected>Cantidad</option>
         <option value="{{i}}" *ngFor="let n of numSequence(10); let i = index;">{{i+1}}</option>
       </select>

@@ -9,11 +9,10 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
+  loading: boolean;
+  idProduct: number;
 
-  loading:boolean;
-  idProducto:number;
-
-  producto: Product = {
+  product: Product = {
     reference: '',
     description: '',
     stock: 0,
@@ -21,33 +20,41 @@ export class ProductComponent implements OnInit {
     warning_stock: 0,
     image: '',
     provider_id: 0,
-    location_id: '',
-    precio: 2
+    location_id: ''
   };
 
-  constructor(private route: ActivatedRoute, private _productService: ProductService) {
+  constructor(
+    private route: ActivatedRoute,
+    private _productService: ProductService
+  ) {
     this.loading = true;
-    this.idProducto = 0;
+    this.idProduct = 0;
   }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       console.log(params); //log the entire params object
-      this.idProducto = params['id'];
+      this.idProduct = params['id'];
     });
-    this.getProducto(this.idProducto);
+    this.getProducto(this.idProduct);
   }
 
-  async getProducto(idProducto:Number){
-    await this._productService.getProductByID(idProducto).subscribe(res => {
-        this.producto = res.products;
-        this.loading = false;
-    });
+  async getProducto(idProducto: Number) {
+    await this._productService.getProductByID(idProducto).subscribe(
+      (res) => {
+        if (res.status == 'success') {
+          this.product = res.products;
+          this.loading = false;
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   //function to return list of numbers from 0 to n-1
   numSequence(n: number): Array<number> {
     return Array(n);
   }
-
 }

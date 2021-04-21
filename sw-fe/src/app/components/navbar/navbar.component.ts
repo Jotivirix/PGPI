@@ -9,18 +9,22 @@ export class NavbarComponent implements OnInit {
 
   title: any = '';
 
-  productosCarrito:any;
-  itemsCarrito:Number;
+  shoppingCartItems:any;
+  cartItems:Number = 0;
 
   constructor() {
-    this.itemsCarrito = 0;
     this.title = 'Smart Warehouse';
-    console.log('Navbar Cargada');
   }
 
   ngOnInit(): void {
-    this.productosCarrito = JSON.parse(localStorage.getItem('carrito')!);
-    this.itemsCarrito = this.productosCarrito.length;
+    this.shoppingCartItems = JSON.parse(localStorage.getItem('shoppingCart')!);
+    if(this.shoppingCartItems != null)
+    {
+      this.cartItems = this.shoppingCartItems.length;
+    }
+    else{
+      this.cartItems = 0;
+    }
   }
 
 }

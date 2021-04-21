@@ -7,5 +7,4 @@ export interface Product {
   image: string;
   provider_id: Number;
   location_id: string;
-  precio: Number;
 }
