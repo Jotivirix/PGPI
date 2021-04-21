@@ -46,7 +46,6 @@ class OrderController extends Controller
         // Receive POST
         $data = $request->input();
 
-        // The order is saved
         $order = new Order();
         $order->user_id = $data['user_id'];
         $order->datetime = $data['datetime'];
@@ -60,18 +59,46 @@ class OrderController extends Controller
         $order->save();
         $order->refresh();
 
+        $all_products_available = true;
         if ($request->exists('products')) {
             // The products for that order are saved
             $products = $data['products']; // Array of JSON with product_reference and product_amount
             foreach ($products as $product) {
-                Product::saveOrderProducts($order->id, json_decode($product));
+                $product_decoded = json_decode($product);
+
+                // Checks the availability
+                if ($all_products_available) {
+                    $available = Product::checkAvailability($product_decoded->reference, $product_decoded->amount);
+
+                    if (!$available) {
+                        $all_products_available = false;
+                        $message = 'There are not ' . $product_decoded->amount . ' units of product ' . $product_decoded->reference;
+                    }
+                }
+            }
+
+            // The products are deducted and saved in Order_products
+            if ($all_products_available) {
+                foreach ($products as $product) {
+                    $product_decoded = json_decode($product);
+
+                    if ($all_products_available) {
+                        Product::deductProductUnits($product_decoded->reference, $product_decoded->amount);
+                        Product::saveOrderProducts($order->id, $product_decoded);
+                    }
+                }
+
+                $response = array(
+                    'status' => 'success',
+                    'order' => $order
+                );
+            } else {
+                $response = array(
+                    'status' => 'error',
+                    'message' => $message
+                );
             }
         }
-
-        $response = array(
-            'status' => 'success',
-            'order' => $order
-        );
 
         return response()->json($response);
     }
@@ -126,7 +153,6 @@ class OrderController extends Controller
         // Receive POST
         $data = $request->input();
 
-        // The order is saved
         $order = Order::find($id);
 
         if ($order) {
@@ -140,13 +166,6 @@ class OrderController extends Controller
             $order->country = $data['country'];
             $order->shipment_company_id = $data['shipment_company_id'];
             $order->save();
-            $order->refresh();
-
-            // The products for that order are saved
-            $products = $data['products']; // Array of JSON with product_reference and product_amount
-            foreach ($products as $product) {
-                Product::updateOrderProducts($order->id, json_decode($product));
-            }
 
             $response = array(
                 'status' => 'success',
@@ -177,6 +196,35 @@ class OrderController extends Controller
             $response = array(
                 'status' => 'success',
                 'message' => 'The order was successfully deleted'
+            );
+        } else {
+            $response = array(
+                'status' => 'error',
+                'message' => 'The order does not exist'
+            );
+        }
+
+        return response()->json($response);
+    }
+
+    public function assignOrderToWorker(Request $request)
+    {
+        // Receive POST
+        $data = $request->input();
+
+        $worker_id = $data['worker_id'];
+        $order_id = $data['order_id'];
+
+        // The order is saved
+        $order = Order::find($order_id);
+
+        if ($order) {
+            $order->worker_id = $worker_id;
+            $order->save();
+
+            $response = array(
+                'status' => 'success',
+                'order' => $order
             );
         } else {
             $response = array(

@@ -23,14 +23,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('orders', OrderController::class);
-Route::resource('products', ProductController::class);
-
-Route::post('uploadcsv', [CSVController::class, 'importCSV']);
+// Users
 Route::post('users/register', [UserController::class, 'register']);
 Route::post('users/login', [UserController::class, 'login']);
 
+// Orders
+Route::post('orders/assign', [OrderController::class, 'assignOrderToWorker']);
+
+Route::post('uploadcsv', [CSVController::class, 'importCSV']);
 
 Route::post('pdf/delivery_note', [PDFController::class, 'getDeliveryNote']);
 Route::post('pdf/tag', [PDFController::class, 'getTag']);
 
+Route::resource('orders', OrderController::class);
+Route::resource('products', ProductController::class);
