@@ -8,7 +8,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProductComponent } from './pages/product/product.component';
 import { RegisterComponent } from './pages/register/register.component';
-
+import { PedidosTrabajadorComponent } from './pages/pedidos-trabajador/pedidos-trabajador.component';
+import { ReactiveFormsModule} from '@angular/forms'
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,11 +17,13 @@ import { RegisterComponent } from './pages/register/register.component';
     HomeComponent,
     ProductComponent,
     NavbarComponent,
-    RegisterComponent
+    RegisterComponent,
+    PedidosTrabajadorComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

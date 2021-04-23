@@ -1,0 +1,7 @@
+﻿name,shipment_type,delivery_days
+DHL,urgente,0
+DHL,estandar,0
+SEUR,urgente,1
+SEUR,estandar,3
+Correos,urgente,0
+Correos,estandar,0

@@ -9,19 +9,19 @@
             <div class="text-center headpanel">
                 <h3>Registro</h3>
             </div>
-            
+            <form [formGroup]="signupForm" (ngSubmit)="enviar(signupForm.value)">
             <section>
                 <div class="row">
                     <div class="col-6">
                         <label for="Nombre">Nombre</label>
                         <div>
-                            <input name="NombreInput" type="text" class="inputForm">
+                            <input formControlName="Nombre" type="text" class="inputForm">
                         </div>   
                     </div>
                     <div class="col-6">
                         <label for="Apellidos">Apellidos</label>
                         <div>
-                            <input name="ApellidosInput" type="text" class="inputForm">
+                            <input formControlName="Apellidos" type="text" class="inputForm">
                         </div>
                     </div> 
                 </div>   
@@ -29,21 +29,21 @@
             <section>
                 <label for="Email">Email</label>
                 <div>
-                    <input name="EmailInput" type="text" class="inputForm mailcity">
+                    <input formControlName="Email" type="text" class="inputForm mailcity">
                 </div>
             </section>
             <section>
                 <div class="row">
                     <div class="col-6">
-                        <label for="Passwrod">Contraseña</label>
+                        <label for="Password">Contraseña</label>
                         <div>
-                            <input name="PasswordInput" type="password" class="inputForm">
+                            <input formControlName="Password" type="password" class="inputForm">
                         </div>
                     </div>
                     <div class="col-6">
                         <label for="Telefono">Telefono</label>
                         <div>
-                            <input name="TelefonoInput" type="text" class="inputForm">
+                            <input formControlName="Telefono" type="text" class="inputForm">
                         </div>
                     </div>
                 </div>  
@@ -51,7 +51,7 @@
             <section>
                 <label for="Direccion">Dirección</label>
                 <div>
-                    <input name="DireccionInput" type="text" class="inputForm mailcity">
+                    <input formControlName="Direccion" type="text" class="inputForm mailcity">
                 </div>
             </section>
             <section>
@@ -59,19 +59,19 @@
                     <div class="col-3">
                         <label for="CP">Cod. Postal</label>
                         <div>
-                            <input name="CPInput" type="text" class="inputForm inputpeq">
+                            <input formControlName="CP" type="text" class="inputForm inputpeq">
                         </div>
                     </div>
                     <div class="col-3">
                         <label for="Ciudad">Ciudad</label>
                         <div>
-                            <input name="CiudadInput" type="text" class="inputForm inputpeq">
+                            <input formControlName="Ciudad" type="text" class="inputForm inputpeq">
                         </div>
                     </div>
                     <div class="col-3">
                         <label for="Pais">Pais</label>
                         <div>
-                            <input name="PaisInput" type="text" class="inputForm inputpeq">
+                            <input formControlName="Pais" type="text" class="inputForm inputpeq">
                         </div>
                     </div>
                 </div>
@@ -85,9 +85,10 @@
             </section>
             <section>
                 <div class="row align-items-center justify-content-center">
-                    <button class="btn btn-primary botonaccept">Registrarse</button>
+                    <button [disabled]="signupForm.invalid" type="submit" class="btn btn-primary botonaccept">Registrarse</button>
                 </div>
             </section>
+            </form>
             </div>
         </div>
     </div>
