@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\CSVController;
+use App\Http\Controllers\ShipmentCompanyController;
 use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
@@ -23,13 +24,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('orders', OrderController::class);
-Route::resource('products', ProductController::class);
+Route::group(['middleware' => ['cors']], function () {
 
-Route::post('uploadcsv', [CSVController::class, 'importCSV']);
-Route::post('users/register', [UserController::class, 'register']);
-Route::post('users/login', [UserController::class, 'login']);
+    // Users
+    Route::post('users/register', [UserController::class, 'register']);
+    Route::post('users/login', [UserController::class, 'login']);
 
-Route::post('pdf/delivery_note', [PDFController::class, 'getDeliveryNote']);
-Route::post('pdf/tag', [PDFController::class, 'getTag']);
+    // Orders
+    Route::post('orders/assign', [OrderController::class, 'assignOrderToWorker']);
 
+    Route::post('uploadcsv', [CSVController::class, 'importCSV']);
+
+    Route::post('pdf/delivery_note', [PDFController::class, 'getDeliveryNote']);
+    Route::post('pdf/tag', [PDFController::class, 'getTag']);
+
+    Route::resource('orders', OrderController::class);
+    Route::resource('products', ProductController::class);
+    Route::resource('shipmentcompanies', ShipmentCompanyController::class);
+});
