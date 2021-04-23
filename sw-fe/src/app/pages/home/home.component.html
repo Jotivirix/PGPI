@@ -38,13 +38,18 @@
                 <div class="col-1"></div>
               </div>
               <br>
-              <div class="row">
+              <!--
+              <div class="row" *ngIf="prod.picking+prod.stock > prod.warning_stock_limit;else riesgoStock">
                 <div class="col-1"></div>
                 <div class="col-10">
-                  <button (click)="addToCart(prod.id)" class="btn btn-md btn-success btnProd">Agregar al carrito</button>
+                  <button (click)="addToCart(prod.reference,1)" class="btn btn-md btn-success btnProd">Agregar al carrito</button>
                 </div>
                 <div class="col-1"></div>
               </div>
+              <ng-template #riesgoStock>
+                <p>Este pedido se encuentra en fase de reaprovisionamiento</p>
+              </ng-template>
+              -->
             </div>
           </div>
         </div>

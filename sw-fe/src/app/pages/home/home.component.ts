@@ -13,10 +13,10 @@ import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, DoCheck {
+export class HomeComponent implements OnInit {
   loading: boolean;
   error: boolean = false;
-  vacio:boolean = false;
+  vacio: boolean = false;
   products: any = [];
   shoppingCart: any = [];
 
@@ -25,17 +25,6 @@ export class HomeComponent implements OnInit, DoCheck {
     private shoppingCartService: ShoppingCartService
   ) {
     this.loading = true;
-  }
-  ngDoCheck(): void {
-    //Si hay productos en cache
-    if (this.getWithExpiry('products_cache') !== null) {
-      this.products = this.getWithExpiry('products_cache');
-      console.log('Loaded from cache');
-      this.loading = false;
-    } else {
-      this.getProducts();
-      console.log('Loaded from DB');
-    }
   }
 
   ngOnInit(): void {
@@ -66,8 +55,7 @@ export class HomeComponent implements OnInit, DoCheck {
             this.products = res.products;
             this.setWithExpiry('products_cache', this.products, 120000);
             this.loading = false;
-          }
-          else{
+          } else {
             console.log('No Hay Productos');
             this.products = [];
             this.loading = false;
@@ -131,21 +119,5 @@ export class HomeComponent implements OnInit, DoCheck {
    * Agrega el producto con ID determinado al carrito
    * @param idProducto id del producto a agregar al carrito
    */
-  async addToCart(idProducto: Number) {
-    await this.productService.getProductByID(idProducto).subscribe(
-      (res) => {
-        //Actualizamos el array local
-        this.shoppingCart.push(res.products);
-        //Pasamos el nuevo array a la cache
-        sessionStorage.setItem(
-          'shoppingCart',
-          JSON.stringify(this.shoppingCart)
-        );
-        console.log(this.shoppingCart);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
+
 }
