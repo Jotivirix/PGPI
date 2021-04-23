@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -48,7 +49,7 @@ class OrderController extends Controller
 
         $order = new Order();
         $order->user_id = $data['user_id'];
-        $order->datetime = $data['datetime'];
+        $order->datetime = Carbon::now();
         $order->status = $data['status'];
         $order->number = $data['number'];
         $order->street = $data['street'];
