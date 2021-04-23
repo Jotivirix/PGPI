@@ -33,10 +33,19 @@
               <div class="row">
                 <div class="col-1"></div>
                 <div class="col-10">
-                  <a href="/product/{{prod.id}}" class="btn btn-md btn-primary btnProd">Saber más</a>
+                  <a href="/product/{{prod.id}}" *ngIf="prod.stock + prod.picking > prod.warning_stock_limit; else sinStock" class="btn btn-md btn-primary btnProd">Saber más</a>
                 </div>
                 <div class="col-1"></div>
               </div>
+              <ng-template #sinStock>
+                <div class="row">
+                  <div class="col-1"></div>
+                  <div class="col-10">
+                    <button class="btn btn-md btn-warning btnProd" disabled>No Hay Stock</button>
+                  </div>
+                  <div class="col-1"></div>
+                </div>
+              </ng-template>
               <br>
               <!--
               <div class="row" *ngIf="prod.picking+prod.stock > prod.warning_stock_limit;else riesgoStock">
