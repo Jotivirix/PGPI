@@ -29,17 +29,22 @@ export class CartComponent implements OnInit {
 
   sinProductos: boolean = false;
 
-  constructor(private _shoppingCartService: ShoppingCartService, private _builder: FormBuilder, private _orderService: OrderService) {
-    this.formOrder = this._builder.group(
-      {
-        street: ['', Validators.required],
-        number: ['', Validators.required],
-        city: ['', Validators.required],
-        zip_code: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
-        country: ['', Validators.required],
-        shipment_company_id: [''],
-      }
-    );
+  constructor(
+    private _shoppingCartService: ShoppingCartService,
+    private _builder: FormBuilder,
+    private _orderService: OrderService
+  ) {
+    this.formOrder = this._builder.group({
+      street: ['', Validators.required],
+      number: ['', Validators.required],
+      city: ['', Validators.required],
+      zip_code: [
+        '',
+        [Validators.required, Validators.minLength(5), Validators.maxLength(5)],
+      ],
+      country: ['', Validators.required],
+      shipment_company_id: [''],
+    });
   }
 
   ngOnInit(): void {
@@ -50,15 +55,8 @@ export class CartComponent implements OnInit {
     } else {
       this.sinProductos = true;
     }
-    console.log(typeof(this.shoppingCart))
+    console.log(typeof this.shoppingCart);
   }
-
-  groupBy = (array: any, key: any) => {
-    return array.reduce((result: any, obj: any) => {
-      (result[obj[key]] = result[obj[key]] || []).push(obj);
-      return result;
-    }, []);
-  };
 
   removeElements() {
     console.log('Empty Cart Clicked');
@@ -76,14 +74,19 @@ export class CartComponent implements OnInit {
         reference: product.reference,
         amount: product.amount,
       };
-      this.products.push(prod);
+      this.products.push(JSON.stringify(prod));
       this.order.products = this.products;
     });
     this.order = Object.assign(this.order, this.formOrder.value);
     console.log('Order');
     console.log(this.order);
-    await this._orderService.makeOrder(this.order).subscribe((res) => {
-      console.log(res);
-    });
+    await this._orderService.makeOrder(this.order).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }

@@ -13,12 +13,7 @@ export class OrderService {
   }
 
   makeOrder(order: any) {
-    console.log('Order efectuado');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-
-    return this.http.post(this.URL+'/orders',order,{headers: headers});
+    return this.http.post(this.URL+'/orders',order);
 
   }
 }

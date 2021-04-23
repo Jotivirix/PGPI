@@ -1,9 +1,9 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from 'src/app/interfaces/product';
+import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
+import { Product } from 'src/app/interfaces/product';
 
 @Component({
   selector: 'app-product',
