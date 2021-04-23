@@ -11,10 +11,10 @@ export class ShoppingCartService {
 
   getShoppingCart() {
     //Cogemos el carrito de la sesion
-    if(sessionStorage.getItem('shoppingCart') != null)
+    if(localStorage.getItem('shoppingCart') != null)
     {
-      this.shoppingCart = JSON.parse(sessionStorage.getItem('shoppingCart')!);
-      sessionStorage.setItem('shoppingCart',sessionStorage.getItem('shoppingCart')!);
+      this.shoppingCart = JSON.parse(localStorage.getItem('shoppingCart')!);
+      localStorage.setItem('shoppingCart',localStorage.getItem('shoppingCart')!);
     }
     return this.shoppingCart;
   }

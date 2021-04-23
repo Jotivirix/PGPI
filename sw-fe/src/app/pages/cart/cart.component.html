@@ -19,20 +19,81 @@
       </table>
     </div>
   </div>
+
   <br>
-  <div class="row">
-    <div class="col-2"></div>
-    <div class="col-3">
-      <button style="width: 100%;" [disabled]="sinProductos" class="btn btn-md btn-success" (click)="generateOrder();">Finalizar Pedido</button>
+  <br>
+  <br>
+
+  <!-- Formulario de pedido -->
+  <form [formGroup]="formOrder" (ngSubmit)="generateOrder()">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-2">
+        <label for="street">Calle</label>
+        <input type="text" class="form-control" id="street" formControlName="street" placeholder="Calle">
+        <div *ngIf="formOrder.get('street')!.hasError('required') && formOrder.get('street')!.touched">Introduzca la
+          calle</div>
+      </div>
+      <div class="col-md-2">
+        <label for="street">Numero</label>
+        <input type="text" class="form-control" id="number" formControlName="number" placeholder="Numero">
+        <div *ngIf="formOrder.get('number')!.hasError('required') && formOrder.get('number')!.touched">Introduzca el
+          número</div>
+      </div>
+      <div class="col-md-2">
+        <label for="street">Ciudad</label>
+        <input type="text" class="form-control" id="city" formControlName="city" placeholder="Ciudad">
+        <div *ngIf="formOrder.get('city')!.hasError('required') && formOrder.get('city')!.touched">Introduzca la ciudad
+        </div>
+      </div>
+      <div class="col-md-3"></div>
     </div>
-    <div class="col-2"></div>
-    <div class="col-3">
-      <button style="width: 100%;" (click)="removeElements();" [disabled]="sinProductos" class="btn btn-md btn-warning">Vaciar
-        Carrito</button>
+    <br>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-2">
+        <label for="street">Codigo Postal</label>
+        <input type="text" class="form-control" id="zip_code" formControlName="zip_code" placeholder="CP">
+        <div *ngIf="formOrder.get('zip_code')!.hasError('required') && formOrder.get('zip_code')!.touched">Introduzca el CP</div>
+        <div *ngIf="formOrder.get('zip_code')!.hasError('minLength') || formOrder.get('zip_code')!.hasError('maxLength')  && formOrder.get('zip_code')!.touched">CP excede tamaño (5)</div>
+      </div>
+      <div class="col-md-2">
+        <label for="street">País</label>
+        <input type="text" class="form-control" id="country" formControlName="country" placeholder="País">
+        <div *ngIf="formOrder.get('country')!.hasError('required') && formOrder.get('country')!.touched">Introduzca el
+          país</div>
+      </div>
+      <div class="col-md-2">
+        <label for="street">Compañía de reaprto</label>
+        <input type="text" class="form-control" id="shipment_company_id" formControlName="shipment_company_id"
+          placeholder="Compañía de reparto">
+      </div>
+      <div class="col-md-3"></div>
     </div>
-    <div class="col-2"></div>
-  </div>
+
+    <br>
+    <br>
+    <br>
+
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-3">
+        <button type="submit" style="width: 100%;" [disabled]="formOrder.invalid" class="btn btn-md btn-success">Finalizar Pedido</button>
+      </div>
+      <div class="col-2"></div>
+      <div class="col-3">
+        <button style="width: 100%;" (click)="removeElements();" [disabled]="sinProductos"
+          class="btn btn-md btn-warning">Vaciar
+          Carrito</button>
+      </div>
+      <div class="col-2"></div>
+    </div>
+  </form>
+
 </div>
+
+<br>
+
 <ng-template #emptyCart>
   <div class="row text-center">
     <div class="col-1"></div>

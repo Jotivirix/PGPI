@@ -58,7 +58,7 @@ export class ProductComponent implements OnInit {
       (res) => {
         if (res.status == 'success') {
           this.product = res.products;
-          this.totalAmount = res.products['stock'] + res.products['picking'];
+          this.totalAmount = res.products['stock'] + res.products['picking'] > 20 ? 20 : this.totalAmount;
           this.loading = false;
         }
       },
@@ -92,7 +92,7 @@ export class ProductComponent implements OnInit {
     }
     this.totalAmount -= order.amount;
     //Pasamos a sesion el carrito
-    sessionStorage.setItem('shoppingCart', JSON.stringify(this.cart));
+    localStorage.setItem('shoppingCart', JSON.stringify(this.cart));
     console.log(this.cart);
   }
 }
