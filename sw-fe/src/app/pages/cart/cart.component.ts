@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
 import { OrderService } from 'src/app/services/order.service';
+import { ShipmentCompaniesService } from 'src/app/services/shipment-companies.service';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 
 @Component({
@@ -26,13 +28,15 @@ export class CartComponent implements OnInit {
     products: '',
   };
   formOrder: FormGroup;
-
-  sinProductos: boolean = false;
+  shipmentCompanies: any = [];
+  loading:boolean = true;
+  noProducts: boolean = false;
 
   constructor(
     private _shoppingCartService: ShoppingCartService,
     private _builder: FormBuilder,
-    private _orderService: OrderService
+    private _orderService: OrderService,
+    private _shipmentCompaniesService: ShipmentCompaniesService
   ) {
     this.formOrder = this._builder.group({
       street: ['', Validators.required],
@@ -43,17 +47,18 @@ export class CartComponent implements OnInit {
         [Validators.required, Validators.minLength(5), Validators.maxLength(5)],
       ],
       country: ['', Validators.required],
-      shipment_company_id: [''],
+      shipment_company_id: [1, Validators.required],
     });
+    this.getShipmentCompanies();
   }
 
   ngOnInit(): void {
     this.shoppingCart = this._shoppingCartService.getShoppingCart();
     this.dataSource = this.shoppingCart;
     if (this.shoppingCart.length > 0) {
-      this.sinProductos = false;
+      this.noProducts = false;
     } else {
-      this.sinProductos = true;
+      this.noProducts = true;
     }
     console.log(typeof this.shoppingCart);
   }
@@ -65,7 +70,7 @@ export class CartComponent implements OnInit {
     //Vaciamos la variable de sesion del shoppingcart
     localStorage.setItem('shoppingCart', JSON.stringify([]));
     this.dataSource = this.shoppingCart;
-    this.sinProductos = true;
+    this.noProducts = true;
   }
 
   async generateOrder() {
@@ -80,9 +85,27 @@ export class CartComponent implements OnInit {
     this.order = Object.assign(this.order, this.formOrder.value);
     console.log('Order');
     console.log(this.order);
-    await this._orderService.makeOrder(this.order).subscribe(
+    this._orderService.makeOrder(this.order).subscribe(
       (res) => {
+        if (res['status'] == 'success') {
+          //Pedido!
+        }
         console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  getShipmentCompanies() {
+    this._shipmentCompaniesService.getCompanies().subscribe(
+      (res) => {
+        if(res.status == 'success'){
+          this.shipmentCompanies = res.shipment_companies;
+          console.log(this.shipmentCompanies);
+          this.loading = false;
+        }
       },
       (err) => {
         console.log(err);

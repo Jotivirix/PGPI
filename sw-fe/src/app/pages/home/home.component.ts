@@ -53,6 +53,7 @@ export class HomeComponent implements OnInit {
         if (res.status == 'success') {
           if (res.products.length > 0) {
             this.products = res.products;
+            console.log(this.products)
             this.setWithExpiry('products_cache', this.products, 120000);
             this.loading = false;
           } else {
