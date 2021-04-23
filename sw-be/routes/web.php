@@ -23,17 +23,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Users
-Route::post('users/register', [UserController::class, 'register']);
-Route::post('users/login', [UserController::class, 'login']);
+Route::group(['middleware' => ['cors']], function () {
 
-// Orders
-Route::post('orders/assign', [OrderController::class, 'assignOrderToWorker']);
+    // Users
+    Route::post('users/register', [UserController::class, 'register']);
+    Route::post('users/login', [UserController::class, 'login']);
 
-Route::post('uploadcsv', [CSVController::class, 'importCSV']);
+    // Orders
+    Route::post('orders/assign', [OrderController::class, 'assignOrderToWorker']);
 
-Route::post('pdf/delivery_note', [PDFController::class, 'getDeliveryNote']);
-Route::post('pdf/tag', [PDFController::class, 'getTag']);
+    Route::post('uploadcsv', [CSVController::class, 'importCSV']);
 
-Route::resource('orders', OrderController::class);
-Route::resource('products', ProductController::class);
+    Route::post('pdf/delivery_note', [PDFController::class, 'getDeliveryNote']);
+    Route::post('pdf/tag', [PDFController::class, 'getTag']);
+
+    Route::resource('orders', OrderController::class);
+    Route::resource('products', ProductController::class);
+});
