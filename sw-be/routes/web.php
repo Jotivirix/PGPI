@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\CSVController;
+use App\Http\Controllers\ShipmentCompanyController;
 use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
@@ -39,4 +40,5 @@ Route::group(['middleware' => ['cors']], function () {
 
     Route::resource('orders', OrderController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('shipmentcompanies', ShipmentCompanyController::class);
 });
