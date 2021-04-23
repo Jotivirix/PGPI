@@ -60,8 +60,8 @@ export class CartComponent implements OnInit {
   generateOrder() {
     this.shoppingCart.forEach((product: any) => {
       let prod = {
-        reference: product[0].reference,
-        amount: product.length,
+        reference: product.reference,
+        amount: product.amount,
       };
       this.products.push(prod);
       this.order.products = this.products;
