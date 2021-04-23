@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class Product extends Model
 {
@@ -79,7 +80,7 @@ class Product extends Model
 
         // Comprobar el warning limit para realizar pedido
         if ($product->picking < $product->warning_stock_limit) {
-            $product->stock = 20;
+            Log::info('Se ha realizado un pedido de ' . $product->reference);
         }
 
         $product->save();
