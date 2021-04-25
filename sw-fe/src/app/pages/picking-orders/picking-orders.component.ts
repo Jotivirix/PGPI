@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ThemePalette } from '@angular/material/core';
+import { filter } from 'lodash';
 
 @Component({
   selector: 'picking-orders',
@@ -11,27 +12,33 @@ import { ThemePalette } from '@angular/material/core';
   styleUrls: ['./picking-orders.component.scss'],
 })
 export class PickingOrdersComponent implements OnInit, AfterViewInit {
-  loading: boolean = true;
+  loading: boolean = false;
   dataSource = new MatTableDataSource();
-  columnsToDisplay: any;
+  columnsToDisplay = [
+    'orderID',
+    'client',
+    'date',
+    'status',
+    'address',
+    'deliverType',
+    'prepare',
+  ];
   pageSize: number = 5;
   length: number = 0;
   pageSizeOptions = [5, 10, 15, 20, 50, 100];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  expandedElement: any | null | undefined;
-  orders:any;
+  orders: any = [];
+  showPrepareButton: boolean = true;
 
   links = ['First', 'Second', 'Third'];
   activeLink = this.links[0];
   background: ThemePalette = 'primary';
 
-  constructor(private _ordersService: OrderService) { }
+  constructor(private _ordersService: OrderService) {}
 
   ngOnInit(): void {
     this.getOrders();
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   ngAfterViewInit(): void {
@@ -40,34 +47,55 @@ export class PickingOrdersComponent implements OnInit, AfterViewInit {
   }
 
   getOrders() {
-    this._ordersService.getOrders().subscribe(res => {
-      if(res.status == "success"){
-        this.orders = res.orders;
-        console.log(this.orders);
-        console.log('Products retrieved', res);
-          this.orders = res.orders;
-          this.dataSource.data = this.orders;
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
+    this.loading = true;
+    this._ordersService.getOrders().subscribe(
+      (res) => {
+        if (res.status == 'success') {
           this.loading = false;
-          this.columnsToDisplay = [
-            'orderID',
-            'client',
-            'date',
-            'status',
-            'address',
-            'deliverType',
-            'prepare'
-          ];
-          this.length=this.orders.length;
+          this.orders = res.orders;
+          this.length = this.orders.length;
+          this.dataSource.data = this.orders;
+        } else {
+          console.log(res);
+        }
+        return this.orders;
+      },
+      (err) => {
+        console.log(err);
       }
-      else{
-
-      }
-    }, err => {
-      console.log(err);
-    })
+    );
   }
 
-}
+  showPending() {
+    console.log('Pending');
+    const filteredOrders = this.orders.filter(
+      (order: any) => order.status === 'pending'
+    );
+    this.dataSource.data = filteredOrders;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.length = this.dataSource.data.length;
+  }
 
+  showInProgress() {
+    console.log('In Progress');
+    const filteredOrders = this.orders.filter(
+      (order: any) => order.status === 'in progress'
+    );
+    this.dataSource.data = filteredOrders;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.length = this.dataSource.data.length;
+  }
+
+  showDelivered() {
+    console.log('Delivered');
+    const filteredOrders = this.orders.filter(
+      (order: any) => order.status === 'completed'
+    );
+    this.dataSource.data = filteredOrders;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.length = this.dataSource.data.length;
+  }
+}

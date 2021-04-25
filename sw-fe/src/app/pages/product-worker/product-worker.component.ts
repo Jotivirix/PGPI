@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ProductWorker } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class ProductWorkerComponent implements OnInit, AfterViewInit {
   pageSizeOptions = [5, 10, 15, 20, 50, 100];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  products: any;
+  products: ProductWorker[] = [];
 
   constructor(private _productsService: ProductService) {}
 
@@ -37,6 +38,7 @@ export class ProductWorkerComponent implements OnInit, AfterViewInit {
         if (res.status == 'success') {
           console.log('Products retrieved', res);
           this.products = res.products;
+          console.log(this.products);
           this.dataSource.data = this.products;
           this.loading = false;
           this.displayedColumns = [

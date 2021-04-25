@@ -9,6 +9,14 @@ export interface Product {
   location_id: string;
 }
 
+export interface ProductWorker {
+  reference: string,
+  location_id: number,
+  provider: string,
+  picking: number,
+  stock: number
+}
+
 export interface Order {
 
 }
