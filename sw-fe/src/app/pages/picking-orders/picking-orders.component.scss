@@ -1,0 +1,21 @@
+table {
+  width: 100%;
+}
+
+.orderButton {
+  width: 80%;
+  display: block;
+  margin: auto;
+}
+
+.inProgress {
+  color: orange !important;
+}
+
+.pending {
+  color: red !important;
+}
+
+.delivered {
+  color: green !important;
+}

@@ -31,19 +31,17 @@
                 slice:0:20)+'...':(prod.description)}}</p>
               <p class="card-text">Marca: {{prod.provider_id}}</p>
               <div class="row">
-                <div class="col-1"></div>
-                <div class="col-10">
+                <div class="col-2"></div>
+                <div class="col-8">
                   <a href="/product/{{prod.id}}" *ngIf="prod.stock + prod.picking > prod.warning_stock_limit; else sinStock" class="btn btn-md btn-primary btnProd">Saber más</a>
                 </div>
-                <div class="col-1"></div>
+                <div class="col-2"></div>
               </div>
               <ng-template #sinStock>
                 <div class="row">
-                  <div class="col-1"></div>
-                  <div class="col-10">
-                    <button class="btn btn-md btn-warning btnProd" disabled>No Hay Stock</button>
+                  <div class="col-12">
+                    <button class="btn btn-md btn-warning btnSinStock" disabled>Sin Stock</button>
                   </div>
-                  <div class="col-1"></div>
                 </div>
               </ng-template>
             </div>
