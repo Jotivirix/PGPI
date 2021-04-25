@@ -19,6 +19,7 @@ class ProductController extends Controller
         
         foreach(Product::all() as $product) {
             $product->provider;
+            $product->location;
 
             array_push($products, $product);
         }
