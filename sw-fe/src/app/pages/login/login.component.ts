@@ -12,8 +12,8 @@ export class LoginComponent implements OnInit {
   signupForm :FormGroup;
   constructor(private userService:UserService,private _builder: FormBuilder) {
     this.signupForm = this._builder.group({
-      Email: ['',Validators.required],
-      Password: ['',Validators.required]
+      email: ['',Validators.compose([Validators.required,Validators.email])],
+      password: ['',Validators.required]
     })
    }
 
@@ -23,7 +23,14 @@ export class LoginComponent implements OnInit {
   enviar(values:any){
     
     console.log(values);
-    this.userService.login(values);
+    this.userService.login(values).subscribe(
+      (res)=>{
+        console.log(res)
+        localStorage.setItem('token',res['token']);
+    },(err)=>{
+      console.log(err)
+    }
+    );
   }
  
 

@@ -1,6 +1,6 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -10,19 +10,20 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RegisterComponent implements OnInit {
 
-  User:any = [];
+  
   signupForm :FormGroup;
+
   constructor(private userService:UserService,private _builder: FormBuilder) {
     this.signupForm = this._builder.group({
-      Nombre: ['',Validators.required],
-      Apellidos: ['',Validators.required],
-      Email: ['',Validators.compose([Validators.email, Validators.required])],
-      Password: ['',Validators.required],
-      Telefono: ['',Validators.required],
-      Direccion: ['',Validators.required],
-      CP: ['',Validators.required],
-      Ciudad: ['',Validators.required],
-      Pais: ['',Validators.required]
+      name: ['',Validators.required],
+      surname: ['',Validators.required],
+      email: ['',Validators.compose([Validators.email, Validators.required])],
+      password: ['',Validators.required],
+      phone_number: ['',Validators.required],
+      street: ['',Validators.required],
+      zip_code: ['',Validators.required],
+      city: ['',Validators.required],
+      country: ['',Validators.required]
     })
   }
   ngOnInit(): void { 
@@ -30,8 +31,14 @@ export class RegisterComponent implements OnInit {
 
   enviar(values:any){
     
-    console.log(values);
-    this.userService.register(values);
+ 
+    this.userService.register(values).subscribe(
+      (res)=>{
+        console.log(res);
+      },(err)=>{
+        console.log(err);
+      }
+    );
   }
  
 }

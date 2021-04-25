@@ -8,15 +8,15 @@
             <form [formGroup]="signupForm" (ngSubmit)="enviar(signupForm.value)">
             <section>
                 <div>
-                    <label for="Nombre">Nombre usuario</label>
+                    <label for="email">Nombre usuario</label>
                         <div>
-                            <input formControlName="Nombre" type="text" class="inputForm">
+                            <input formControlName="email" type="text" class="inputForm">
                         </div>   
                 </div>
                 <div>
-                    <label for="Password">Contaseña</label>
+                    <label for="password">Contaseña</label>
                         <div>
-                            <input formControlName="Password" type="password" class="inputForm">
+                            <input formControlName="password" type="password" class="inputForm">
                         </div>   
                 </div>
             </section>
