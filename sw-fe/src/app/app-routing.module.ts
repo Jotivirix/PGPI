@@ -6,6 +6,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { ProductWorkerComponent } from './pages/product-worker/product-worker.component';
 import { PickingOrdersComponent } from './pages/picking-orders/picking-orders.component';
+import { OrderPageComponent } from './pages/order-page/order-page.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'pickingOrders',
     component: PickingOrdersComponent
+  },
+  {
+    path: 'orderPage/:id',
+    component: OrderPageComponent
   },
 ];
 

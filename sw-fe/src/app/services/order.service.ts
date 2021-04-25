@@ -20,4 +20,8 @@ export class OrderService {
   getOrders():Observable<any> {
     return this.http.get(this.URL+'/orders');
   }
+
+  getOrderById(idOrder:number):Observable<any> {
+    return this.http.get(this.URL+"/orders/"+idOrder);
+  }
 }
