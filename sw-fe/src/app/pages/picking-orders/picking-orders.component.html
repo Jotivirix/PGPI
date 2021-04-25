@@ -9,37 +9,38 @@
 <br />
 
 <div class="row">
-  <div class="col-2"></div>
-  <div class="col-2">
+  <div class="col-3">
     <button
-      class="btn btn-info btn-md"
-      style="width: 100%"
+      class="btn btn-info btn-md orderButton"
+      (click)="showAll()"
+    >
+      Todos los Pedidos
+    </button>
+  </div>
+  <div class="col-3">
+    <button
+      class="btn btn-info btn-md orderButton"
       (click)="showPending()"
     >
       Pedidos Pendientes
     </button>
   </div>
-  <div class="col-1"></div>
-  <div class="col-2">
+  <div class="col-3">
     <button
-      class="btn btn-info btn-md"
-      style="width: 100%"
+      class="btn btn-info btn-md orderButton"
       (click)="showInProgress()"
     >
       Pedidos en curso
     </button>
   </div>
-  <div class="col-1"></div>
-  <div class="col-2">
+  <div class="col-3">
     <button
-      class="btn btn-info btn-md"
-      style="width: 100%"
+      class="btn btn-info btn-md orderButton"
       (click)="showDelivered()"
     >
       Pedidos enviados
     </button>
   </div>
-  <div class="col-2"></div>
 </div>
 
 <br />
@@ -70,7 +71,10 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
-      <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+      <td mat-cell class="inProgress" *matCellDef="let element"[ngClass]="{
+        'delivered' : element.status == 'delivered',
+        'pending' : element.status == 'pending'
+     }">{{ element.status | uppercase }}</td>
     </ng-container>
 
     <ng-container matColumnDef="address">
@@ -91,10 +95,10 @@
     <ng-container matColumnDef="prepare">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Preparar</th>
       <td mat-cell *matCellDef="let element">
-        <button class="btn btn-sm btn-success" *ngIf="showPrepareButton">
+        <button class="btn btn-sm btn-success" *ngIf="showPrepareButton && element.status != 'delivered'">
           Preparar
         </button>
-        <button class="btn btn-sm btn-warning" *ngIf="!showPrepareButton">
+        <button class="btn btn-sm btn-warning" *ngIf="!showPrepareButton || element.status === 'delivered'">
           Ver Detalle
         </button>
       </td>

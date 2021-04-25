@@ -66,6 +66,14 @@ export class PickingOrdersComponent implements OnInit, AfterViewInit {
     );
   }
 
+  showAll() {
+    console.log('Pending');
+    this.getOrders();
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.length = this.dataSource.data.length;
+  }
+
   showPending() {
     console.log('Pending');
     const filteredOrders = this.orders.filter(
@@ -91,7 +99,7 @@ export class PickingOrdersComponent implements OnInit, AfterViewInit {
   showDelivered() {
     console.log('Delivered');
     const filteredOrders = this.orders.filter(
-      (order: any) => order.status === 'completed'
+      (order: any) => order.status === 'delivered'
     );
     this.dataSource.data = filteredOrders;
     this.dataSource.paginator = this.paginator;
