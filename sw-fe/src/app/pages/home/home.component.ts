@@ -13,7 +13,7 @@ import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, DoCheck {
   loading: boolean;
   error: boolean = false;
   vacio: boolean = false;
@@ -25,6 +25,9 @@ export class HomeComponent implements OnInit {
     private shoppingCartService: ShoppingCartService
   ) {
     this.loading = true;
+  }
+  ngDoCheck(): void {
+    this.shoppingCart = this.shoppingCartService.getShoppingCart();
   }
 
   ngOnInit(): void {

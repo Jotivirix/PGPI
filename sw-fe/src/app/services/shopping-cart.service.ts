@@ -18,4 +18,9 @@ export class ShoppingCartService {
     }
     return this.shoppingCart;
   }
+
+  emptyCart() {
+    this.shoppingCart = [];
+    localStorage.removeItem('shoppingCart');
+  }
 }
