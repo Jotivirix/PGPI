@@ -16,6 +16,11 @@ class Product extends Model
         return $this->belongsToMany(Order::class);
     }
 
+    public function provider()
+    {
+        return $this->belongsTo(Provider::class);
+    }
+
     public static function saveOrderProducts($order_id, $product)
     {
         $product_db = Product::where('reference', $product->reference)->first();
