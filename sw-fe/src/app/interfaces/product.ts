@@ -8,3 +8,7 @@ export interface Product {
   provider_id: Number;
   location_id: string;
 }
+
+export interface Order {
+
+}

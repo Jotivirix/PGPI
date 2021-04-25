@@ -3,7 +3,6 @@ import { OrderService } from 'src/app/services/order.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTabsModule } from '@angular/material/tabs';
 import { ThemePalette } from '@angular/material/core';
 
 @Component({
@@ -23,7 +22,6 @@ export class PickingOrdersComponent implements OnInit, AfterViewInit {
   expandedElement: any | null | undefined;
   orders:any;
 
-
   links = ['First', 'Second', 'Third'];
   activeLink = this.links[0];
   background: ThemePalette = 'primary';
@@ -32,6 +30,8 @@ export class PickingOrdersComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.getOrders();
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   ngAfterViewInit(): void {
@@ -47,6 +47,8 @@ export class PickingOrdersComponent implements OnInit, AfterViewInit {
         console.log('Products retrieved', res);
           this.orders = res.orders;
           this.dataSource.data = this.orders;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
           this.loading = false;
           this.columnsToDisplay = [
             'orderID',
