@@ -5,6 +5,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { PedidosTrabajadorComponent } from './pages/pedidos-trabajador/pedidos-trabajador.component';
+import { CartComponent } from './pages/cart/cart.component';
+import { ProductWorkerComponent } from './pages/product-worker/product-worker.component';
+import { PedidosPickingComponent } from './pages/pedidos-picking/pedidos-picking.component';
 
 const routes: Routes = [
   {
@@ -26,7 +29,18 @@ const routes: Routes = [
   {
     path: 'pedidos-trabajador',
     component: PedidosTrabajadorComponent,
-  }
+  },{
+    path: 'cart',
+    component: CartComponent,
+  },
+  {
+    path: 'workerProducts',
+    component: ProductWorkerComponent
+  },
+  {
+    path: 'pickingOrders',
+    component: PedidosPickingComponent
+  },
 ];
 
 @NgModule({

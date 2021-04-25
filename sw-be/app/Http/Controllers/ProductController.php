@@ -15,7 +15,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = array();
+        
+        foreach(Product::all() as $product) {
+            $product->provider;
+
+            array_push($products, $product);
+        }
 
         $response = array(
             'status' => 'success',

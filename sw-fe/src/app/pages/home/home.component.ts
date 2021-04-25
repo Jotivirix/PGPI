@@ -1,1018 +1,124 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  DoCheck,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import { ProductService } from 'src/app/services/product.service';
+import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  loading: boolean;
+  error: boolean = false;
+  vacio: boolean = false;
+  products: any = [];
+  shoppingCart: any = [];
 
-  productos = [
-    {
-      "reference": "X11",
-      "description": "Leche fresca",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 3,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "A"
-    },
-    {
-      "reference": "X12",
-      "description": "Platanos canarios",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 9,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "B"
-    },
-    {
-      "reference": "X13",
-      "description": "Platanos de Albacete",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "C"
-    },
-    {
-      "reference": "X14",
-      "description": "Leche semidesnatada",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 8,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "D"
-    },
-    {
-      "reference": "X15",
-      "description": "Fresón",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "E"
-    },
-    {
-      "reference": "X16",
-      "description": "Yogur desnatado",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 10,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "F"
-    },
-    {
-      "reference": "X17",
-      "description": "Agua Mineral",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 7,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "G"
-    },
-    {
-      "reference": "X18",
-      "description": "Coca Cola Original",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 15,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "H"
-    },
-    {
-      "reference": "X19",
-      "description": "Ron Barceló",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 12,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "I"
-    },
-    {
-      "reference": "X20",
-      "description": "Red Bull Sin Azúcar",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 6,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "J"
-    },
-    {
-      "reference": "X21",
-      "description": "Mandarinas",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 3,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "K"
-    },
-    {
-      "reference": "X22",
-      "description": "Jamón Serrano",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "L"
-    },
-    {
-      "reference": "X23",
-      "description": "Pepino",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 5,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "M"
-    },
-    {
-      "reference": "X24",
-      "description": "Chocolate Nestlé",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 9,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "N"
-    },
-    {
-      "reference": "X25",
-      "description": "Filetes de Merluza",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 4,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "O"
-    },
-    {
-      "reference": "X26",
-      "description": "Cerveza",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 5,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "P"
-    },
-    {
-      "reference": "X27",
-      "description": "Fanta Naranja",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 8,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "Q"
-    },
-    {
-      "reference": "X28",
-      "description": "Detergente Ariel",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "R"
-    },
-    {
-      "reference": "X29",
-      "description": "Barrita Energética Chocolate",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 3,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "S"
-    },
-    {
-      "reference": "X30",
-      "description": "Lejía Perfumada",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 4,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "T"
-    },
-    {
-      "reference": "X11",
-      "description": "Leche fresca",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 3,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "A"
-    },
-    {
-      "reference": "X12",
-      "description": "Platanos canarios",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 9,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "B"
-    },
-    {
-      "reference": "X13",
-      "description": "Platanos de Albacete",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "C"
-    },
-    {
-      "reference": "X14",
-      "description": "Leche semidesnatada",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 8,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "D"
-    },
-    {
-      "reference": "X15",
-      "description": "Fresón",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "E"
-    },
-    {
-      "reference": "X16",
-      "description": "Yogur desnatado",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 10,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "F"
-    },
-    {
-      "reference": "X17",
-      "description": "Agua Mineral",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 7,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "G"
-    },
-    {
-      "reference": "X18",
-      "description": "Coca Cola Original",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 15,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "H"
-    },
-    {
-      "reference": "X19",
-      "description": "Ron Barceló",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 12,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "I"
-    },
-    {
-      "reference": "X20",
-      "description": "Red Bull Sin Azúcar",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 6,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "J"
-    },
-    {
-      "reference": "X21",
-      "description": "Mandarinas",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 3,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "K"
-    },
-    {
-      "reference": "X22",
-      "description": "Jamón Serrano",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "L"
-    },
-    {
-      "reference": "X23",
-      "description": "Pepino",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 5,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "M"
-    },
-    {
-      "reference": "X24",
-      "description": "Chocolate Nestlé",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 9,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "N"
-    },
-    {
-      "reference": "X25",
-      "description": "Filetes de Merluza",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 4,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "O"
-    },
-    {
-      "reference": "X26",
-      "description": "Cerveza",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 5,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "P"
-    },
-    {
-      "reference": "X27",
-      "description": "Fanta Naranja",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 8,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "Q"
-    },
-    {
-      "reference": "X28",
-      "description": "Detergente Ariel",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "R"
-    },
-    {
-      "reference": "X29",
-      "description": "Barrita Energética Chocolate",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 3,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "S"
-    },
-    {
-      "reference": "X30",
-      "description": "Lejía Perfumada",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 4,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "T"
-    },
-    {
-      "reference": "X11",
-      "description": "Leche fresca",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 3,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "A"
-    },
-    {
-      "reference": "X12",
-      "description": "Platanos canarios",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 9,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "B"
-    },
-    {
-      "reference": "X13",
-      "description": "Platanos de Albacete",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "C"
-    },
-    {
-      "reference": "X14",
-      "description": "Leche semidesnatada",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 8,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "D"
-    },
-    {
-      "reference": "X15",
-      "description": "Fresón",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "E"
-    },
-    {
-      "reference": "X16",
-      "description": "Yogur desnatado",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 10,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "F"
-    },
-    {
-      "reference": "X17",
-      "description": "Agua Mineral",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 7,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "G"
-    },
-    {
-      "reference": "X18",
-      "description": "Coca Cola Original",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 15,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "H"
-    },
-    {
-      "reference": "X19",
-      "description": "Ron Barceló",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 12,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "I"
-    },
-    {
-      "reference": "X20",
-      "description": "Red Bull Sin Azúcar",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 6,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "J"
-    },
-    {
-      "reference": "X21",
-      "description": "Mandarinas",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 3,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "K"
-    },
-    {
-      "reference": "X22",
-      "description": "Jamón Serrano",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "L"
-    },
-    {
-      "reference": "X23",
-      "description": "Pepino",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 5,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "M"
-    },
-    {
-      "reference": "X24",
-      "description": "Chocolate Nestlé",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 9,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "N"
-    },
-    {
-      "reference": "X25",
-      "description": "Filetes de Merluza",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 4,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "O"
-    },
-    {
-      "reference": "X26",
-      "description": "Cerveza",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 5,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "P"
-    },
-    {
-      "reference": "X27",
-      "description": "Fanta Naranja",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 8,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "Q"
-    },
-    {
-      "reference": "X28",
-      "description": "Detergente Ariel",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "R"
-    },
-    {
-      "reference": "X29",
-      "description": "Barrita Energética Chocolate",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 3,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "S"
-    },
-    {
-      "reference": "X30",
-      "description": "Lejía Perfumada",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 4,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "T"
-    },
-    {
-      "reference": "X11",
-      "description": "Leche fresca",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 3,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "A"
-    },
-    {
-      "reference": "X12",
-      "description": "Platanos canarios",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 9,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "B"
-    },
-    {
-      "reference": "X13",
-      "description": "Platanos de Albacete",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "C"
-    },
-    {
-      "reference": "X14",
-      "description": "Leche semidesnatada",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 8,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "D"
-    },
-    {
-      "reference": "X15",
-      "description": "Fresón",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "E"
-    },
-    {
-      "reference": "X16",
-      "description": "Yogur desnatado",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 10,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "F"
-    },
-    {
-      "reference": "X17",
-      "description": "Agua Mineral",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 7,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "G"
-    },
-    {
-      "reference": "X18",
-      "description": "Coca Cola Original",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 15,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "H"
-    },
-    {
-      "reference": "X19",
-      "description": "Ron Barceló",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 12,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "I"
-    },
-    {
-      "reference": "X20",
-      "description": "Red Bull Sin Azúcar",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 6,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "J"
-    },
-    {
-      "reference": "X21",
-      "description": "Mandarinas",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 3,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "K"
-    },
-    {
-      "reference": "X22",
-      "description": "Jamón Serrano",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "L"
-    },
-    {
-      "reference": "X23",
-      "description": "Pepino",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 5,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "M"
-    },
-    {
-      "reference": "X24",
-      "description": "Chocolate Nestlé",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 9,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "N"
-    },
-    {
-      "reference": "X25",
-      "description": "Filetes de Merluza",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 4,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "O"
-    },
-    {
-      "reference": "X26",
-      "description": "Cerveza",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 5,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "P"
-    },
-    {
-      "reference": "X27",
-      "description": "Fanta Naranja",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 8,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "Q"
-    },
-    {
-      "reference": "X28",
-      "description": "Detergente Ariel",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "R"
-    },
-    {
-      "reference": "X29",
-      "description": "Barrita Energética Chocolate",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 3,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "S"
-    },
-    {
-      "reference": "X30",
-      "description": "Lejía Perfumada",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 4,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "T"
-    },
-    {
-      "reference": "X11",
-      "description": "Leche fresca",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 3,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "A"
-    },
-    {
-      "reference": "X12",
-      "description": "Platanos canarios",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 9,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "B"
-    },
-    {
-      "reference": "X13",
-      "description": "Platanos de Albacete",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "C"
-    },
-    {
-      "reference": "X14",
-      "description": "Leche semidesnatada",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 8,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "D"
-    },
-    {
-      "reference": "X15",
-      "description": "Fresón",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "E"
-    },
-    {
-      "reference": "X16",
-      "description": "Yogur desnatado",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 10,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "F"
-    },
-    {
-      "reference": "X17",
-      "description": "Agua Mineral",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 7,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "G"
-    },
-    {
-      "reference": "X18",
-      "description": "Coca Cola Original",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 15,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "H"
-    },
-    {
-      "reference": "X19",
-      "description": "Ron Barceló",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 12,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "I"
-    },
-    {
-      "reference": "X20",
-      "description": "Red Bull Sin Azúcar",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 6,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "J"
-    },
-    {
-      "reference": "X21",
-      "description": "Mandarinas",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 3,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "K"
-    },
-    {
-      "reference": "X22",
-      "description": "Jamón Serrano",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "L"
-    },
-    {
-      "reference": "X23",
-      "description": "Pepino",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 5,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "M"
-    },
-    {
-      "reference": "X24",
-      "description": "Chocolate Nestlé",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 9,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "N"
-    },
-    {
-      "reference": "X25",
-      "description": "Filetes de Merluza",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 4,
-      "image": "",
-      "provider_id": 3,
-      "location_id": "O"
-    },
-    {
-      "reference": "X26",
-      "description": "Cerveza",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 5,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "P"
-    },
-    {
-      "reference": "X27",
-      "description": "Fanta Naranja",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 8,
-      "image": "",
-      "provider_id": 2,
-      "location_id": "Q"
-    },
-    {
-      "reference": "X28",
-      "description": "Detergente Ariel",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 2,
-      "image": "",
-      "provider_id": 4,
-      "location_id": "R"
-    },
-    {
-      "reference": "X29",
-      "description": "Barrita Energética Chocolate",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 3,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "S"
-    },
-    {
-      "reference": "X30",
-      "description": "Lejía Perfumada",
-      "stock": 20,
-      "picking": 20,
-      "warning_stock": 4,
-      "image": "",
-      "provider_id": 1,
-      "location_id": "T"
-    }
-  ]
-
-  constructor() { }
+  constructor(
+    private productService: ProductService,
+    private shoppingCartService: ShoppingCartService
+  ) {
+    this.loading = true;
+  }
 
   ngOnInit(): void {
+    this.shoppingCart = this.shoppingCartService.getShoppingCart();
+    //Si hay productos en cache
+    if (
+      this.getWithExpiry('products_cache') !== null &&
+      this.getWithExpiry('products_cache').length > 0
+    ) {
+      this.products = this.getWithExpiry('products_cache');
+      console.log('Hay', this.products.length, ' productos');
+      console.log('Loaded from cache');
+      this.loading = false;
+    } else {
+      this.getProducts();
+      console.log('Loaded from DB');
+    }
   }
+
+  /**
+   * Obtenemos los productos del backend
+   */
+  async getProducts(): Promise<any> {
+    this.productService.getProductos().subscribe(
+      (res) => {
+        if (res.status == 'success') {
+          if (res.products.length > 0) {
+            this.products = res.products;
+            console.log(this.products)
+            this.setWithExpiry('products_cache', this.products, 120000);
+            this.loading = false;
+          } else {
+            console.log('No Hay Productos');
+            this.products = [];
+            this.loading = false;
+            this.vacio = true;
+          }
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.products = [];
+        this.loading = false;
+        this.error = true;
+      }
+    );
+  }
+
+  /**
+   * Establece un elemento en localStorage
+   * durante un tiempo determinado
+   * @param key nombre del elemento en el localStorage
+   * @param value contenido del elemento
+   * @param ttl tiempo que dura "vivo" el elemento
+   */
+  setWithExpiry(key: string, value: any, ttl: any) {
+    const now = new Date();
+    // `item` is an object which contains the original value
+    // as well as the time when it's supposed to expire
+    const item = {
+      value: value,
+      expiry: now.getTime() + ttl,
+    };
+    localStorage.setItem(key, JSON.stringify(item));
+  }
+
+  /**
+   * Obtiene los elementos con el nombre indicado.
+   * Solo obtendrá los elementos si el tiempo de vida
+   * es válido. Si no, no los cogerá
+   * @param key nombre o identificador del elemento a obtener
+   * @returns
+   */
+  getWithExpiry(key: string): any {
+    const itemStr = localStorage.getItem(key);
+    // if the item doesn't exist, return null
+    if (!itemStr) {
+      return null;
+    }
+    const item = JSON.parse(itemStr);
+    const now = new Date();
+    // compare the expiry time of the item with the current time
+    if (now.getTime() > item.expiry) {
+      // If the item is expired, delete the item from storage
+      // and return null
+      localStorage.removeItem(key);
+      return null;
+    }
+    return item.value;
+  }
+
+  /**
+   * Agrega el producto con ID determinado al carrito
+   * @param idProducto id del producto a agregar al carrito
+   */
 
 }

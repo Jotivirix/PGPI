@@ -1,17 +1,52 @@
 <app-navbar></app-navbar>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-1"></div>
-        <div class="col-4">
-            <h2>Imagen del Producto</h2>
-        </div>
-        <div class="col-4">
-            <h4>Descripcion del Producto</h4>
+
+<!--Progress Bar-->
+<barra-carga *ngIf="loading"></barra-carga>
+
+<div class="container-fluid text-center" *ngIf="!loading">
+  <div class="row espacioTop">
+    <div class="col-4"></div>
+    <div class="col-4">
+      <img class="img card-img-top img-fluid imagenProducto" src="../../../assets/img/{{product.image}}"
+        onerror="this.src='../../assets/img/default.jpg';" alt="LogoProducto" />
+      <br>
+      <h2>{{product.description}}</h2>
+      <h3>Marca: {{product.provider_id}}</h3>
+    </div>
+    <div class="col-4"></div>
+  </div>
+
+  <br>
+  <br>
+
+  <div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+      <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+          <div *ngIf="totalAmount > 0;else noStock">
+            <form [formGroup]="amountForm" (ngSubmit)="addToCart();">
+              <h4>Seleccione el numero de productos:</h4>
+              <select class="btn btn-md btn-primary" style="margin-bottom: 2em; width: 60%;"
+                formControlName="amount">
+                <option class="desplegableProductos" value="{{i+1}}"
+                  *ngFor="let n of numSequence(totalAmount); let i = index;">{{i+1}}</option>
+              </select>
+              <br>
+              <button type="submit" style="width: 100%;" class="btn btn-lg btn-success">Añadir al carrito</button>
+            </form>
+          </div>
+
+          <ng-template #noStock>
+            <h2>No hay stock temporalmente</h2>
+          </ng-template>
         </div>
         <div class="col-2"></div>
-        <div class="col-1">
-            <h6>PRECIO y BOTONES</h6>
-        </div>
+      </div>
     </div>
+    <div class="col-4"></div>
+  </div>
+
 </div>

@@ -1,0 +1,48 @@
+<app-navbar></app-navbar>
+
+<!--Progress Bar-->
+<barra-carga *ngIf="loading"></barra-carga>
+<br>
+<h2 class="text-center">Productos del Almacén</h2>
+<br>
+
+
+<div class="mat-elevation-z8">
+
+  <table mat-table [dataSource]="dataSource" style="width: 100%;" matSort>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="reference">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Producto </th>
+      <td mat-cell *matCellDef="let element"> {{element.reference}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="location">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Localización </th>
+      <td mat-cell *matCellDef="let element"> {{element.location_id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="provider">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Proveedor </th>
+      <td mat-cell *matCellDef="let element"> {{element.provider_id}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="picking">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Picking </th>
+      <td mat-cell *matCellDef="let element"> {{element.picking}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="stock">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock </th>
+      <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+  </mat-paginator>
+</div>
