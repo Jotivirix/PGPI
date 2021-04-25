@@ -5,7 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { ProductWorkerComponent } from './pages/product-worker/product-worker.component';
-import { PedidosPickingComponent } from './pages/pedidos-picking/pedidos-picking.component';
+import { PickingOrdersComponent } from './pages/picking-orders/picking-orders.component';
 
 const routes: Routes = [
   {
@@ -30,7 +30,7 @@ const routes: Routes = [
   },
   {
     path: 'pickingOrders',
-    component: PedidosPickingComponent
+    component: PickingOrdersComponent
   },
 ];
 

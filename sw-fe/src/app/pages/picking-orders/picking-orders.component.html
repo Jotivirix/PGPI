@@ -1,0 +1,61 @@
+<app-navbar></app-navbar>
+
+<nav mat-tab-nav-bar [backgroundColor]="background">
+  <a mat-tab-link *ngFor="let link of links"
+     (click)="activeLink = link"
+     [active]="activeLink == link"> {{link}} </a>
+  <a mat-tab-link disabled>Disabled Link</a>
+</nav>
+
+<barra-carga *ngIf="loading"></barra-carga>
+
+<div class="mat-elevation-z8">
+
+  <table mat-table [dataSource]="dataSource" style="width: 100%;" matSort>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="orderID">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Pedido </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="client">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
+      <td mat-cell *matCellDef="let element"> {{element.user_id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha del Pedido </th>
+      <td mat-cell *matCellDef="let element"> {{element.created_at | date}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+      <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </th>
+      <td mat-cell *matCellDef="let element"> {{element.street}} {{element.number}}, {{element.zip_code}} {{element.city}}, {{element.country}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="deliverType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de Envio </th>
+      <td mat-cell *matCellDef="let element"> {{element.shipment_company_id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="prepare">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Preparar </th>
+      <td mat-cell *matCellDef="let element"><button class="btn btn-sm btn-success">Preparar</button></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+  </table>
+
+  <mat-paginator #paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+  </mat-paginator>
+</div>
+

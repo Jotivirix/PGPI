@@ -16,4 +16,8 @@ export class OrderService {
   makeOrder(order: any):Observable<any> {
     return this.http.post(this.URL+'/orders',order);
   }
+
+  getOrders():Observable<any> {
+    return this.http.get(this.URL+'/orders');
+  }
 }
