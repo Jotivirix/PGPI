@@ -11,7 +11,7 @@ import { ProductComponent } from './pages/product/product.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 //Angular Material
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BarraCargaComponent } from './components/barra-carga/barra-carga.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,6 +21,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductWorkerComponent } from './pages/product-worker/product-worker.component';
+import { MatSortModule } from '@angular/material/sort';
+import { PedidosPickingComponent } from './pages/pedidos-picking/pedidos-picking.component'
 
 @NgModule({
   declarations: [
@@ -31,6 +34,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     BarraCargaComponent,
     CartComponent,
+    ProductWorkerComponent,
+    PedidosPickingComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +43,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NoopAnimationsModule,
     ReactiveFormsModule,
     MatProgressBarModule,
     MatBadgeModule,
@@ -45,7 +51,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatPaginatorModule,
     MatTableModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent],
