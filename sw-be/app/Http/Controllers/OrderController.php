@@ -16,13 +16,18 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::all();
+        $orders = array();
+        
+        foreach(Order::all() as $order) {
+            $order->shipment_company;
+
+            array_push($orders, $order);
+        }
 
         $response = array(
             'status' => 'success',
             'orders' => $orders
         );
-
         return response()->json($response);
     }
 
