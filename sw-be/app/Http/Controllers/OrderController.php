@@ -121,6 +121,8 @@ class OrderController extends Controller
 
         if ($order) {
             $order->products;
+            $order->user;
+            $order->shipment_company;
 
             $response = array(
                 'status' => 'success',
