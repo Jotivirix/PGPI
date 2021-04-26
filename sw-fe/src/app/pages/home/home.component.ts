@@ -13,7 +13,7 @@ import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, DoCheck {
   loading: boolean;
   error: boolean = false;
   vacio: boolean = false;
@@ -26,22 +26,14 @@ export class HomeComponent implements OnInit {
   ) {
     this.loading = true;
   }
+  ngDoCheck(): void {
+    this.shoppingCart = this.shoppingCartService.getShoppingCart();
+  }
 
   ngOnInit(): void {
     this.shoppingCart = this.shoppingCartService.getShoppingCart();
-    //Si hay productos en cache
-    if (
-      this.getWithExpiry('products_cache') !== null &&
-      this.getWithExpiry('products_cache').length > 0
-    ) {
-      this.products = this.getWithExpiry('products_cache');
-      console.log('Hay', this.products.length, ' productos');
-      console.log('Loaded from cache');
-      this.loading = false;
-    } else {
-      this.getProducts();
-      console.log('Loaded from DB');
-    }
+    this.getProducts();
+    console.log('Loaded from DB');
   }
 
   /**
@@ -53,8 +45,7 @@ export class HomeComponent implements OnInit {
         if (res.status == 'success') {
           if (res.products.length > 0) {
             this.products = res.products;
-            console.log(this.products)
-            this.setWithExpiry('products_cache', this.products, 120000);
+            console.log(this.products);
             this.loading = false;
           } else {
             console.log('No Hay Productos');
@@ -72,53 +63,4 @@ export class HomeComponent implements OnInit {
       }
     );
   }
-
-  /**
-   * Establece un elemento en localStorage
-   * durante un tiempo determinado
-   * @param key nombre del elemento en el localStorage
-   * @param value contenido del elemento
-   * @param ttl tiempo que dura "vivo" el elemento
-   */
-  setWithExpiry(key: string, value: any, ttl: any) {
-    const now = new Date();
-    // `item` is an object which contains the original value
-    // as well as the time when it's supposed to expire
-    const item = {
-      value: value,
-      expiry: now.getTime() + ttl,
-    };
-    localStorage.setItem(key, JSON.stringify(item));
-  }
-
-  /**
-   * Obtiene los elementos con el nombre indicado.
-   * Solo obtendrá los elementos si el tiempo de vida
-   * es válido. Si no, no los cogerá
-   * @param key nombre o identificador del elemento a obtener
-   * @returns
-   */
-  getWithExpiry(key: string): any {
-    const itemStr = localStorage.getItem(key);
-    // if the item doesn't exist, return null
-    if (!itemStr) {
-      return null;
-    }
-    const item = JSON.parse(itemStr);
-    const now = new Date();
-    // compare the expiry time of the item with the current time
-    if (now.getTime() > item.expiry) {
-      // If the item is expired, delete the item from storage
-      // and return null
-      localStorage.removeItem(key);
-      return null;
-    }
-    return item.value;
-  }
-
-  /**
-   * Agrega el producto con ID determinado al carrito
-   * @param idProducto id del producto a agregar al carrito
-   */
-
 }

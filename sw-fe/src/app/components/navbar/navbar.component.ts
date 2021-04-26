@@ -26,6 +26,8 @@ export class NavbarComponent implements OnInit, DoCheck {
 
   updateCarrito(){
     this.shoppingCartItems = this.shoppingCartService.getShoppingCart();
+    console.log('Navbar');
+    console.log(this.shoppingCartItems);
     if(this.shoppingCartItems != null)
     {
       this.cartItems = this.shoppingCartItems.length;

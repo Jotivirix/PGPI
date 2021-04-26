@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { OrderService } from 'src/app/services/order.service';
 import { ShipmentCompaniesService } from 'src/app/services/shipment-companies.service';
@@ -29,14 +31,15 @@ export class CartComponent implements OnInit {
   };
   formOrder: FormGroup;
   shipmentCompanies: any = [];
-  loading:boolean = true;
+  loading: boolean = true;
   noProducts: boolean = false;
 
   constructor(
     private _shoppingCartService: ShoppingCartService,
     private _builder: FormBuilder,
     private _orderService: OrderService,
-    private _shipmentCompaniesService: ShipmentCompaniesService
+    private _shipmentCompaniesService: ShipmentCompaniesService,
+    private _router: Router
   ) {
     this.formOrder = this._builder.group({
       street: ['', Validators.required],
@@ -51,6 +54,7 @@ export class CartComponent implements OnInit {
     });
     this.getShipmentCompanies();
   }
+
 
   ngOnInit(): void {
     this.shoppingCart = this._shoppingCartService.getShoppingCart();
@@ -87,8 +91,14 @@ export class CartComponent implements OnInit {
     console.log(this.order);
     this._orderService.makeOrder(this.order).subscribe(
       (res) => {
+        this.loading = true;
         if (res['status'] == 'success') {
-          //Pedido!
+          //Vaciamos carrito
+          localStorage.removeItem('shoppingCart');
+          //PopUp Confirmacion Pedido
+          alert('Pedido Realizado Correctamente');
+          this._shoppingCartService.emptyCart();
+          this._router.navigate(['/'])
         }
         console.log(res);
       },
@@ -101,7 +111,7 @@ export class CartComponent implements OnInit {
   getShipmentCompanies() {
     this._shipmentCompaniesService.getCompanies().subscribe(
       (res) => {
-        if(res.status == 'success'){
+        if (res.status == 'success') {
           this.shipmentCompanies = res.shipment_companies;
           console.log(this.shipmentCompanies);
           this.loading = false;
