@@ -24,6 +24,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSortModule } from '@angular/material/sort';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { OrderPageComponent } from './pages/order-page/order-page.component';
+import { saveAs } from 'file-saver';
 
 
 @NgModule({
@@ -37,6 +39,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     CartComponent,
     ProductWorkerComponent,
     PickingOrdersComponent,
+    OrderPageComponent,
   ],
   imports: [
     BrowserModule,
