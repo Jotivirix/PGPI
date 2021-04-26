@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 
-<barra-carga *ngIf="loading"></barra-carga>
+<barra-carga *ngIf="loading || loadingTag"></barra-carga>
 
 <div id="datosCliente" *ngIf="!loading" style="padding-bottom: 2em;">
   <br />
@@ -22,7 +22,8 @@
   <div class="row text-center" style="font-size: 1.6em;">
     <div class="col-sm-1"></div>
     <div class="col-sm-5"><strong>Fecha de Pedido:</strong> <br> {{this.order.datetime | date}}</div>
-    <div class="col-sm-5"><strong>Compañía de reparto:</strong> <br> {{this.order.shipment_company_id}}</div>
+    <div class="col-sm-5"><strong>Compañía de reparto:</strong> <br> {{this.order.shipment_company.name}}
+      {{this.order.shipment_company.shipment_type}}</div>
     <div class="col-sm-1"></div>
   </div>
 </div>
@@ -64,14 +65,16 @@
 <br>
 <br>
 
-<div class="row">
-  <div class="col-sm-3"></div>
-  <div class="col-sm-2">
-    <button class="btn btn-lg btn-info btnLargo">Generar Albarán</button>
+<div *ngIf="!loading">
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-2">
+      <button class="btn btn-lg btn-info btnLargo" (click)="generateDeliveryNote();" [disabled]="disabledButtons">Generar Albarán</button>
+    </div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-2">
+      <button class="btn btn-lg btn-info btnLargo" (click)="generateTag();" [disabled]="disabledButtons">Generar Etiqueta</button>
+    </div>
+    <div class="col-sm-3"></div>
   </div>
-  <div class="col-sm-2"></div>
-  <div class="col-sm-2">
-    <button class="btn btn-lg btn-info btnLargo">Generar Etiqueta</button>
-  </div>
-  <div class="col-sm-3"></div>
 </div>
