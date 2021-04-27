@@ -1,0 +1,25 @@
+<app-navbar></app-navbar>
+<div id="back" class="container-fluid">
+    <div class="m-0 vh-100 row justify-content-center align-items-center">
+        <div class="col-auto fondo">
+            <div class="text-center headpanel">
+                <h3>Reaprovisionamiento</h3>
+            </div>
+            <form [formGroup]="signupForm" (ngSubmit)="updateProductos()">
+            <div class="row">
+                <div class="col-10">
+                    <select formControlName="producto">
+                        <option  *ngFor="let prod of products" value="{{prod.id}}">{{prod.reference}}</option>
+                    </select>
+                </div>
+                <div class="col-2">
+                    <p>x20</p>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center">
+                <button type="submit" class="btn btn-primary botonaccept">Agregar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
