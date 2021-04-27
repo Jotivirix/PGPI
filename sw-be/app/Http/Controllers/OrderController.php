@@ -120,9 +120,16 @@ class OrderController extends Controller
         $order = Order::find($id);
 
         if ($order) {
-            $order->products;
+            $products = array();
             $order->user;
             $order->shipment_company;
+
+            foreach($order->products as $product) {
+                $product->location;
+                array_push($products, $product);
+            }
+
+            $order->products = $products;
 
             $response = array(
                 'status' => 'success',
