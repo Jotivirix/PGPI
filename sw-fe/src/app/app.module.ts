@@ -26,7 +26,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductWorkerComponent } from './pages/product-worker/product-worker.component';
 import { MatSortModule } from '@angular/material/sort';
-import { PedidosPickingComponent } from './pages/pedidos-picking/pedidos-picking.component'
+import { PedidosPickingComponent } from './pages/pedidos-picking/pedidos-picking.component';
+import { ReaprovisionamientoComponent } from './pages/reaprovisionamiento/reaprovisionamiento.component'
+import { UserService } from './services/user.service'
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { PedidosPickingComponent } from './pages/pedidos-picking/pedidos-picking
     BarraCargaComponent,
     CartComponent,
     ProductWorkerComponent,
-    PedidosPickingComponent
+    PedidosPickingComponent,
+    ReaprovisionamientoComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,7 @@ import { PedidosPickingComponent } from './pages/pedidos-picking/pedidos-picking
     MatFormFieldModule,
     MatSortModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -8,6 +8,7 @@ import { PedidosTrabajadorComponent } from './pages/pedidos-trabajador/pedidos-t
 import { CartComponent } from './pages/cart/cart.component';
 import { ProductWorkerComponent } from './pages/product-worker/product-worker.component';
 import { PedidosPickingComponent } from './pages/pedidos-picking/pedidos-picking.component';
+import { ReaprovisionamientoComponent } from './pages/reaprovisionamiento/reaprovisionamiento.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
     path: 'pickingOrders',
     component: PedidosPickingComponent
   },
+  {
+    path: 'reaprovisionamiento',
+    component: ReaprovisionamientoComponent
+  }
 ];
 
 @NgModule({
