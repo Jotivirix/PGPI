@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ThemePalette } from '@angular/material/core';
 import { filter } from 'lodash';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'picking-orders',
@@ -35,7 +36,7 @@ export class PickingOrdersComponent implements OnInit, AfterViewInit {
   activeLink = this.links[0];
   background: ThemePalette = 'primary';
 
-  constructor(private _ordersService: OrderService) {}
+  constructor(private _ordersService: OrderService, private _userService: UserService) {}
 
   ngOnInit(): void {
     this.getOrders();
@@ -44,6 +45,7 @@ export class PickingOrdersComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    console.log(this._userService.userCreate);
   }
 
   getOrders() {

@@ -20,11 +20,11 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    
+
   }
 
   enviar(values:any){
-    
+
     console.log(JSON.stringify(values));
     this.userService.login(values).subscribe(
       (res)=>{
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
           this.userService.editUser(res);
           console.log(this.userService.userCreate);
           if(this.userService.userCreate.value.role == "customer"){
-            this.router.navigate(['']);
+            this.router.navigate(['products']);
           }else{
             this.router.navigate(['pedidos-trabajador'])
           }
@@ -52,6 +52,6 @@ export class LoginComponent implements OnInit {
     }
     );
   }
- 
+
 
 }

@@ -1,31 +1,30 @@
-<app-navbar></app-navbar>
 <div id="back" class="container-fluid">
-    <div class="m-0 vh-100 row justify-content-center align-items-center">
-        <div class="col-auto fondo">
-            <div class="text-center headpanel">
-                <h3>Inicio de Sesión</h3>
+  <div class="m-0 vh-100 row justify-content-center align-items-center">
+    <div class="col-auto fondo">
+      <div class="text-center headpanel">
+        <h3>Inicio de Sesión</h3>
+      </div>
+      <form [formGroup]="signupForm" (ngSubmit)="enviar(signupForm.value)">
+        <section>
+          <div>
+            <label for="email">Nombre usuario</label>
+            <div>
+              <input formControlName="email" type="text" class="inputForm">
             </div>
-            <form [formGroup]="signupForm" (ngSubmit)="enviar(signupForm.value)">
-            <section>
-                <div>
-                    <label for="email">Nombre usuario</label>
-                        <div>
-                            <input formControlName="email" type="text" class="inputForm">
-                        </div>   
-                </div>
-                <div>
-                    <label for="password">Contaseña</label>
-                        <div>
-                            <input formControlName="password" type="password" class="inputForm">
-                        </div>   
-                </div>
-            </section>
-            <section>
-                <div class="row align-items-center justify-content-center">
-                    <button [disabled]="signupForm.invalid" type="submit" class="btn btn-primary botonaccept">Log in</button>
-                </div>
-            </section>
-            </form>
-        </div>
+          </div>
+          <div>
+            <label for="password">Contaseña</label>
+            <div>
+              <input formControlName="password" type="password" class="inputForm">
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="row align-items-center justify-content-center">
+            <button [disabled]="signupForm.invalid" type="submit" class="btn btn-primary botonaccept">Log in</button>
+          </div>
+        </section>
+      </form>
     </div>
+  </div>
 </div>

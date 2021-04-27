@@ -10,19 +10,24 @@ import { ProductWorkerComponent } from './pages/product-worker/product-worker.co
 import { PickingOrdersComponent } from './pages/picking-orders/picking-orders.component';
 import { OrderPageComponent } from './pages/order-page/order-page.component';
 import { ReaprovisionamientoComponent } from './pages/reaprovisionamiento/reaprovisionamiento.component';
+import { AuthService } from './services/auth.service';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: LoginComponent,
   },
   {
-    path: 'login',
-    component: LoginComponent,
+    path: 'products',
+    component: HomeComponent,
+    canActivate: [AuthService],
+    data: { role: 'CUSTOMER'}
   },
   {
     path: 'product/:id',
     component: ProductComponent,
+    canActivate: [AuthService],
+    data: { role: 'CUSTOMER'}
   },
   {
     path: 'register',
@@ -31,26 +36,40 @@ const routes: Routes = [
   {
     path: 'pedidos-trabajador',
     component: PedidosTrabajadorComponent,
-  },{
+    canActivate: [AuthService],
+    data: { role: 'WORKER' },
+  },
+  {
     path: 'cart',
     component: CartComponent,
+    canActivate: [AuthService],
+    data: { role: 'CUSTOMER'}
   },
   {
     path: 'workerProducts',
-    component: ProductWorkerComponent
+    component: ProductWorkerComponent,
+    canActivate: [AuthService],
+    data: { role: 'WORKER'}
   },
   {
     path: 'pickingOrders',
-    component: PickingOrdersComponent
+    component: PickingOrdersComponent,
+    canActivate: [AuthService],
+    data: { role: 'WORKER'}
   },
   {
     path: 'orderPage/:id',
-    component: OrderPageComponent
+    component: OrderPageComponent,
+    canActivate: [AuthService],
+    data: { role: 'WORKER'}
   },
   {
     path: 'reaprovisionamiento',
-    component: ReaprovisionamientoComponent
-  }
+    component: ReaprovisionamientoComponent,
+    canActivate: [AuthService],
+    data: { role: 'WORKER'}
+  },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
