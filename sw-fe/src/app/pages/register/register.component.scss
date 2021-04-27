@@ -2,15 +2,12 @@
     border-radius: 5px;
 
 }
-.fondo{
-    background-color: #9C9C9C; 
-    border-radius: 15px;
-    opacity: 80%;
-
+.mailcity{
+    width: 50%;
 }
-.headpanel{
-    color: white;
-   }
+.inputpeq{
+    width: 70%;
+}
 #back{
     background-image: url(../../../assets/img/Back1.jpeg);
     height: 100%;
@@ -20,8 +17,16 @@
     background-size: cover;
 
 }
+.fondo{
+    background-color: #9C9C9C; 
+    border-radius: 15px;
+    opacity: 80%;
+
+}
+.headpanel{
+ color: white;
+}
 .botonaccept{
-    margin-bottom: 10px; 
-    margin-top: 10px; 
+    margin-bottom: 20px; 
     width: 50%;
 }

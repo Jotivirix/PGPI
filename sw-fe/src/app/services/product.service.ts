@@ -20,4 +20,8 @@ export class ProductService {
   getProductByID(idProducto: Number): Observable<any> {
     return this.http.get(this.URL + '/products/' + idProducto);
   }
+  
+  updateProductos(producto:any):Observable<any>{
+    return this.http.put(this.URL + '/products/' + producto.id, producto)
+  }
 }

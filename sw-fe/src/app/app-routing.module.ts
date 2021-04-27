@@ -3,9 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProductComponent } from './pages/product/product.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { PedidosTrabajadorComponent } from './pages/pedidos-trabajador/pedidos-trabajador.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { ProductWorkerComponent } from './pages/product-worker/product-worker.component';
 import { PickingOrdersComponent } from './pages/picking-orders/picking-orders.component';
+import { OrderPageComponent } from './pages/order-page/order-page.component';
+import { ReaprovisionamientoComponent } from './pages/reaprovisionamiento/reaprovisionamiento.component';
 
 const routes: Routes = [
   {
@@ -21,6 +25,13 @@ const routes: Routes = [
     component: ProductComponent,
   },
   {
+    path: 'register',
+    component: RegisterComponent,
+  },
+  {
+    path: 'pedidos-trabajador',
+    component: PedidosTrabajadorComponent,
+  },{
     path: 'cart',
     component: CartComponent,
   },
@@ -32,6 +43,14 @@ const routes: Routes = [
     path: 'pickingOrders',
     component: PickingOrdersComponent
   },
+  {
+    path: 'orderPage/:id',
+    component: OrderPageComponent
+  },
+  {
+    path: 'reaprovisionamiento',
+    component: ReaprovisionamientoComponent
+  }
 ];
 
 @NgModule({

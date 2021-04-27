@@ -1,0 +1,95 @@
+
+<div>
+    <app-navbar></app-navbar>
+</div>
+<div id="back" class="container-fluid">
+    <div class="m-0 vh-100 row justify-content-center align-items-center">
+        <div class="col-auto fondo">
+            <div style="opacity: 100% !important;">
+            <div class="text-center headpanel">
+                <h3>Registro</h3>
+            </div>
+            <form [formGroup]="signupForm" (ngSubmit)="enviar(signupForm.value)">
+            <section>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="name">Nombre</label>
+                        <div>
+                            <input formControlName="name" type="text" class="inputForm">
+                        </div>   
+                    </div>
+                    <div class="col-6">
+                        <label for="surname">Apellidos</label>
+                        <div>
+                            <input formControlName="surname" type="text" class="inputForm">
+                        </div>
+                    </div> 
+                </div>   
+            </section>
+            <section>
+                <label for="email">Email</label>
+                <div>
+                    <input formControlName="email" type="text" class="inputForm mailcity">
+                </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="password">Contraseña</label>
+                        <div>
+                            <input formControlName="password" type="password" class="inputForm">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="phone_number">Telefono</label>
+                        <div>
+                            <input formControlName="phone_number" type="text" class="inputForm">
+                        </div>
+                    </div>
+                </div>  
+            </section>
+            <section>
+                <label for="street">Dirección</label>
+                <div>
+                    <input formControlName="street" type="text" class="inputForm mailcity">
+                </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-3">
+                        <label for="zip_code">Cod. Postal</label>
+                        <div>
+                            <input formControlName="zip_code" type="text" class="inputForm inputpeq">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <label for="city">Ciudad</label>
+                        <div>
+                            <input formControlName="city" type="text" class="inputForm inputpeq">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <label for="country">Pais</label>
+                        <div>
+                            <input formControlName="country" type="text" class="inputForm inputpeq">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div>
+                    <input type="checkbox" id="userrequirements">
+                    <label for="userrequirements">  He leido y acepto las condiciones de uso</label>
+                </div>
+                
+            </section>
+            <section>
+                <div class="row align-items-center justify-content-center">
+                    <button [disabled]="signupForm.invalid" type="submit" class="btn btn-primary botonaccept">Registrarse</button>
+                </div>
+            </section>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

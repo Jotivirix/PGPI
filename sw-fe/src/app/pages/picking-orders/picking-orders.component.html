@@ -86,9 +86,9 @@
     </ng-container>
 
     <ng-container matColumnDef="deliverType">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo de Envio</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Envío</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.shipment_company_id }}
+        {{ element.shipment_company.name}} - {{element.shipment_company.shipment_type | uppercase}}
       </td>
     </ng-container>
 

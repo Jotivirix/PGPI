@@ -55,6 +55,7 @@ export class PickingOrdersComponent implements OnInit, AfterViewInit {
           this.orders = res.orders;
           this.length = this.orders.length;
           this.dataSource.data = this.orders;
+          console.log(this.orders)
         } else {
           console.log(res);
         }
