@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,8 +13,10 @@ export class RegisterComponent implements OnInit {
 
   
   signupForm :FormGroup;
-
-  constructor(private userService:UserService,private _builder: FormBuilder) {
+  loading:boolean = false;
+  errorRes:string = '';
+  error:boolean = false;
+  constructor(private userService:UserService,private _builder: FormBuilder,private router:Router) {
     this.signupForm = this._builder.group({
       name: ['',Validators.required],
       surname: ['',Validators.required],
@@ -31,10 +34,17 @@ export class RegisterComponent implements OnInit {
 
   enviar(values:any){
     
- 
+    this.loading = true;
     this.userService.register(values).subscribe(
       (res)=>{
-        console.log(res);
+        if(res.status = "success"){
+          this.router.navigate(['/login']);
+          console.log(res);
+        }else{
+          this.errorRes = res.message;
+          this.loading = false;
+          this.error = true;
+        }
       },(err)=>{
         console.log(err);
       }

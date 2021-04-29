@@ -30,7 +30,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { OrderPageComponent } from './pages/order-page/order-page.component';
 import { ReaprovisionamientoComponent } from './pages/reaprovisionamiento/reaprovisionamiento.component'
-import { UserService } from './services/user.service'
+import { UserService } from './services/user.service';
+import { PedidoPickingComponent } from './pages/pedido-picking/pedido-picking.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { UserService } from './services/user.service'
     ProductWorkerComponent,
     PickingOrdersComponent,
     OrderPageComponent,
-    ReaprovisionamientoComponent
+    ReaprovisionamientoComponent,
+    PedidoPickingComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,7 @@ import { UserService } from './services/user.service'
     MatTableModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatSortModule
+    MatSortModule,
   ],
   providers: [UserService],
   bootstrap: [AppComponent],

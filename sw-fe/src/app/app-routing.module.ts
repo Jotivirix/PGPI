@@ -10,6 +10,7 @@ import { ProductWorkerComponent } from './pages/product-worker/product-worker.co
 import { PickingOrdersComponent } from './pages/picking-orders/picking-orders.component';
 import { OrderPageComponent } from './pages/order-page/order-page.component';
 import { ReaprovisionamientoComponent } from './pages/reaprovisionamiento/reaprovisionamiento.component';
+import { PedidoPickingComponent } from './pages/pedido-picking/pedido-picking.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,10 @@ const routes: Routes = [
   {
     path: 'reaprovisionamiento',
     component: ReaprovisionamientoComponent
+  },
+  {
+    path: 'pedidoPicking/:id',
+    component: PedidoPickingComponent
   }
 ];
 

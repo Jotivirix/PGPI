@@ -95,10 +95,10 @@
     <ng-container matColumnDef="prepare">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Preparar</th>
       <td mat-cell *matCellDef="let element">
-        <button class="btn btn-sm btn-success" *ngIf="showPrepareButton && element.status != 'delivered'">
+        <button class="btn btn-sm btn-success" (click)="onClickHandler(element.id)" *ngIf="showPrepareButton && element.status != 'delivered'" >
           Preparar
         </button>
-        <button class="btn btn-sm btn-warning" *ngIf="!showPrepareButton || element.status === 'delivered'">
+        <button class="btn btn-sm btn-warning" (click)="onClickHandler(element.id)" *ngIf="!showPrepareButton || element.status === 'delivered'" >
           Ver Detalle
         </button>
       </td>

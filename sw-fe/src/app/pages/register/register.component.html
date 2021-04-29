@@ -2,12 +2,18 @@
 <div>
     <app-navbar></app-navbar>
 </div>
+<div *ngIf="loading">
+    <barra-carga ></barra-carga>
+</div>
 <div id="back" class="container-fluid">
     <div class="m-0 vh-100 row justify-content-center align-items-center">
         <div class="col-auto fondo">
             <div style="opacity: 100% !important;">
             <div class="text-center headpanel">
                 <h3>Registro</h3>
+            </div>
+            <div *ngIf="error">
+                <p style="color:red;">{{errorRes}}</p>
             </div>
             <form [formGroup]="signupForm" (ngSubmit)="enviar(signupForm.value)">
             <section>
@@ -82,6 +88,11 @@
                     <label for="userrequirements">  He leido y acepto las condiciones de uso</label>
                 </div>
                 
+            </section>
+            <section>
+                <div>
+                    <a routerLink="/login">Ya tienes una cuenta? Accede!</a>
+                </div>
             </section>
             <section>
                 <div class="row align-items-center justify-content-center">
