@@ -3,10 +3,6 @@
 <barra-carga *ngIf="loading"></barra-carga>
 
 <br />
-<h3 class="text-center">
-  Seleccione un tipo de estado para visualizar los pedidos filtrados
-</h3>
-<br />
 
 <div class="row">
   <div class="col-3">
@@ -95,10 +91,10 @@
     <ng-container matColumnDef="prepare">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Preparar</th>
       <td mat-cell *matCellDef="let element">
-        <button class="btn btn-sm btn-success" (click)="onClickHandler(element.id)" *ngIf="showPrepareButton && element.status !== 'delivered'" >
+        <button class="btn btn-sm btn-success" routerLink='/worker/pedidoPicking/{{element.id}}' *ngIf="showPrepareButton && element.status !== 'delivered'" >
           Preparar
         </button>
-        <button class="btn btn-sm btn-warning" (click)="onClickHandler(element.id)" *ngIf="!showPrepareButton || element.status === 'delivered'" >
+        <button class="btn btn-sm btn-warning" routerLink='/worker/orderPage/{{element.id}}' *ngIf="!showPrepareButton || element.status === 'delivered'" >
           Ver Detalle
         </button>
       </td>

@@ -4,7 +4,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ThemePalette } from '@angular/material/core';
-import { filter } from 'lodash';
 import { Router } from '@angular/router';
 
 @Component({
@@ -109,23 +108,4 @@ export class PickingOrdersComponent implements OnInit, AfterViewInit {
     this.length = this.dataSource.data.length;
   }
 
-  onClickHandler(id:number){
-    this.URL = '/pedidoPicking/'+id;
-    console.log(this.URL);
-    this.loading= true;
-    this._ordersService.getOrderById(id).subscribe(
-      (res)=>{
-        console.log(res.order)
-        if(res.order.status != "delivered"){
-          res.order.status = 'in progress';
-        }
-        this._ordersService.updateOrder(res.order,res.order.id).subscribe(
-          (res) =>{
-            console.log(res)
-            this.router.navigate([this.URL]);
-          }
-        )
-      }
-    )
-  }
 }

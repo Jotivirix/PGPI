@@ -11,7 +11,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { ProductComponent } from './pages/product/product.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { PedidosTrabajadorComponent } from './pages/pedidos-trabajador/pedidos-trabajador.component';
 
 
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -41,7 +40,6 @@ import { PedidoPickingComponent } from './pages/pedido-picking/pedido-picking.co
     ProductComponent,
     NavbarComponent,
     RegisterComponent,
-    PedidosTrabajadorComponent,
     BarraCargaComponent,
     CartComponent,
     ProductWorkerComponent,

@@ -18,7 +18,7 @@ export class PedidoPickingComponent implements OnInit {
   dataSource = new MatTableDataSource();
   client: any;
   constructor(private _ordersService: OrderService,private route: ActivatedRoute,private router:Router) { }
-  
+
   orderUpdate:any;
   length: number = 0;
   pageSizeOptions = [5, 10, 15, 20, 50, 100];
@@ -37,7 +37,7 @@ export class PedidoPickingComponent implements OnInit {
     });
     this.getOrders();
     this.loading=true;
-    
+
   }
   async getOrders() {
     await this._ordersService.getOrderById(this.orderToRequest).subscribe(
@@ -97,7 +97,7 @@ export class PedidoPickingComponent implements OnInit {
     this._ordersService.updateOrder(this.order,this.order.id).subscribe(
       (res)=>{
         console.log(res);
-        this.router.navigate(['/pickingOrders'])
+        this.router.navigate(['/worker/pickingOrders'])
       },(err) =>{
         console.log(err);
       }

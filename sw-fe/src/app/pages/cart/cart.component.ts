@@ -4,9 +4,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { OrderService } from 'src/app/services/order.service';
 import { ShipmentCompaniesService } from 'src/app/services/shipment-companies.service';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-cart',
@@ -19,14 +21,14 @@ export class CartComponent implements OnInit {
   shoppingCart: any = [];
   products: any = [];
   order: any = {
-    user_id: 3,
-    status: 'in progress',
-    shipment_company_id: 1,
-    street: '',
-    number: 1,
-    city: '',
-    zip_code: '',
-    country: '',
+    user_id: '',
+    status: 'pending',
+    shipment_company_id: '',
+    street: this._authService.cUser?.street,
+    number: this._authService.cUser?.number,
+    city: this._authService.cUser?.city,
+    zip_code: this._authService.cUser?.zip_code,
+    country: this._authService.cUser?.country,
     products: '',
   };
   formOrder: FormGroup;
@@ -39,7 +41,8 @@ export class CartComponent implements OnInit {
     private _builder: FormBuilder,
     private _orderService: OrderService,
     private _shipmentCompaniesService: ShipmentCompaniesService,
-    private _router: Router
+    private _router: Router,
+    private _authService: AuthService
   ) {
     this.formOrder = this._builder.group({
       street: ['', Validators.required],
@@ -78,6 +81,8 @@ export class CartComponent implements OnInit {
   }
 
   async generateOrder() {
+    console.log(this._authService.cUser)
+    this.order.user_id = this._authService.cUser?.id;
     this.shoppingCart.forEach((product: any) => {
       let prod = {
         reference: product.reference,
@@ -89,6 +94,7 @@ export class CartComponent implements OnInit {
     this.order = Object.assign(this.order, this.formOrder.value);
     console.log('Order');
     console.log(this.order);
+
     this._orderService.makeOrder(this.order).subscribe(
       (res) => {
         this.loading = true;

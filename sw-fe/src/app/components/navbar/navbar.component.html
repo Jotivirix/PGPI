@@ -8,10 +8,13 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav" style="padding-top: .6em;">
-      <a class="nav-link" routerLinkActive="/home" routerLink="/products" [routerLinkActiveOptions]="{exact: true}">Catálogo <span class="sr-only">(current)</span></a>
-      <a class="nav-link" routerLinkActive="/pickingOrders" routerLink="/pickingOrders">Trabajador</a>
+      <a class="nav-link" routerLink="/products" *ngIf="!isWorker">Catalogo</a>
+      <a class="nav-link" routerLink="/worker/workerProducts" *ngIf="isWorker">Productos</a>
+      <a class="nav-link" routerLink="/worker/pickingOrders" *ngIf="isWorker">Trabajador</a>
       <a class="nav-link" (click)="logout()" routerLink="">Cerrar Sesión</a>
-      <a class="nav-link" routerLinkActive="/cart" routerLink="/cart" style="float: right;"><mat-icon matBadge="{{cartItems}}" matBadgeColor="warn" class="carritoLink" style="float: right;">shopping_cart</mat-icon></a>
+      <a class="nav-link" routerLinkActive="/cart" routerLink="/cart" style="float: right;" *ngIf="!isWorker">
+        <mat-icon matBadge="{{cartItems}}" matBadgeColor="warn" class="carritoLink" style="float: right;">shopping_cart</mat-icon>
+      </a>
     </div>
   </div>
 </nav>

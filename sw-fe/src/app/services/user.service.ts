@@ -27,23 +27,10 @@ export class UserService {
     });
   }
 
-  login(user: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'aplication/json',
-    });
-    return this.http.post(this.URL + '/users/login', user, {
-      headers: headers,
-    });
-  }
-
   getUsuario(userTok: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'aplication/json',
     });
     return this.http.post(this.URL + '/users/login', userTok, {headers: headers});
-  }
-
-  editUser(user: any) {
-    this.userCreate.next(user);
   }
 }

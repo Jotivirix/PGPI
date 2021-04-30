@@ -1,15 +1,15 @@
 <barra-carga *ngIf="loading"></barra-carga>
 
 <div id="back" class="container-fluid">
-  <div class="m-0 vh-100 row justify-content-center align-items-center">
-    <div class="col-6 fondo">
+  <div class="vh-100 row justify-content-center align-items-center">
+    <div class="col-8 fondo">
       <div class="text-center headpanel">
         <h3>Inicio de Sesión</h3>
       </div>
-      <div *ngIf="error">
-        <p style="color:red;">{{errorRes}}</p>
-      </div>
-      <form [formGroup]="signupForm" (ngSubmit)="enviar(signupForm.value)">
+
+      <p style="color:red;">{{error ? 'ERROR':''}}</p>
+
+      <form [formGroup]="signupForm" (ngSubmit)="login(signupForm.value)">
         <section>
           <div>
             <label for="email">Email</label>

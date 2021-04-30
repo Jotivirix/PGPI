@@ -1,5 +1,5 @@
 export interface User {
-    user_id:string,
+    id:string,
     name:string,
     surname:string,
     email:string,
@@ -7,8 +7,10 @@ export interface User {
     role:string,
     phone_number:string,
     street:string,
+    number:number,
     city:string,
     zip_code:string,
     country:string,
-    email_verified_at:string
+    email_verified_at:string,
+    exp:number
 }

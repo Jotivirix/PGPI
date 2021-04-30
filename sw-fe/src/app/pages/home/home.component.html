@@ -29,7 +29,7 @@
             <div class="card-body">
               <p style="font-weight: bold;">{{(prod.description.length>20)? (prod.description |
                 slice:0:20)+'...':(prod.description)}}</p>
-              <p class="card-text">Marca: {{prod.provider_id}}</p>
+              <p class="card-text">Marca: {{prod.provider.name}}</p>
               <div class="row">
                 <div class="col-2"></div>
                 <div class="col-8">
