@@ -25,6 +25,7 @@
     "bootstrap": "^4.6.0",
     "file-saver": "^2.0.5",
     "lodash": "^4.17.21",
+    "ngx-spinner": "^11.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

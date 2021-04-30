@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ThemePalette } from '@angular/material/core';
 import { filter } from 'lodash';
-import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'picking-orders',
@@ -35,8 +35,8 @@ export class PickingOrdersComponent implements OnInit, AfterViewInit {
   links = ['First', 'Second', 'Third'];
   activeLink = this.links[0];
   background: ThemePalette = 'primary';
-
-  constructor(private _ordersService: OrderService, private _userService: UserService) {}
+  URL:string = '';
+  constructor(private _ordersService: OrderService,private router:Router) {}
 
   ngOnInit(): void {
     this.getOrders();
@@ -45,7 +45,6 @@ export class PickingOrdersComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    console.log(this._userService.userCreate);
   }
 
   getOrders() {
@@ -108,5 +107,25 @@ export class PickingOrdersComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.length = this.dataSource.data.length;
+  }
+
+  onClickHandler(id:number){
+    this.URL = '/pedidoPicking/'+id;
+    console.log(this.URL);
+    this.loading= true;
+    this._ordersService.getOrderById(id).subscribe(
+      (res)=>{
+        console.log(res.order)
+        if(res.order.status != "delivered"){
+          res.order.status = 'in progress';
+        }
+        this._ordersService.updateOrder(res.order,res.order.id).subscribe(
+          (res) =>{
+            console.log(res)
+            this.router.navigate([this.URL]);
+          }
+        )
+      }
+    )
   }
 }

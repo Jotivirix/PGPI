@@ -6,52 +6,64 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
-  signupForm :FormGroup;
+  signupForm: FormGroup;
   valueToken: any;
-  constructor(private userService:UserService,private _builder: FormBuilder,private router:Router) {
+  loading: boolean = false;
+  error: boolean = false;
+  errorRes: string = '';
+  constructor(
+    private userService: UserService,
+    private _builder: FormBuilder,
+    private router: Router
+  ) {
     this.signupForm = this._builder.group({
-      email: ['',Validators.compose([Validators.required,Validators.email])],
-      password: ['',Validators.required]
-    })
-   }
-
-  ngOnInit(): void {
-
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.required],
+    });
   }
 
-  enviar(values:any){
+  ngOnInit(): void {}
 
-    console.log(JSON.stringify(values));
+  enviar(values: any) {
+    this.loading = true;
     this.userService.login(values).subscribe(
-      (res)=>{
-        console.log(res)
-        this.valueToken = JSON.stringify(values).substring(0,JSON.stringify(values).length - 1 ) + ', "token": "' + res['token'] + '"}';
-        console.log(this.valueToken);
-        console.log(JSON.parse(this.valueToken));
-        localStorage.setItem('token',res['token']);
-        this.userService.getUsuario(JSON.parse(this.valueToken)).subscribe(
-          (res) => {
-          console.log(res)
-          this.userService.editUser(res);
-          console.log(this.userService.userCreate);
-          if(this.userService.userCreate.value.role == "customer"){
-            this.router.navigate(['products']);
-          }else{
-            this.router.navigate(['pedidos-trabajador'])
-          }
-          },(err)=>{
-            console.log(err)
-          }
-        )
-    },(err)=>{
-      console.log(err)
-    }
+      (res) => {
+        if (res.status == 'success') {
+          this.valueToken =
+            JSON.stringify(values).substring(
+              0,
+              JSON.stringify(values).length - 1
+            ) +
+            ', "token": "' +
+            res['token'] +
+            '"}';
+          localStorage.setItem('token', this.valueToken);
+          this.userService.getUsuario(JSON.parse(this.valueToken)).subscribe(
+            (res) => {
+              this.userService.editUser(res);
+              if (this.userService.userCreate.value.role == 'customer') {
+                this.router.navigate(['products']);
+              } else {
+                this.router.navigate(['pickingOrders']);
+              }
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        } else {
+          console.log(res);
+          this.errorRes = res.message;
+          this.error = true;
+          this.loading = false;
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
     );
   }
-
-
 }

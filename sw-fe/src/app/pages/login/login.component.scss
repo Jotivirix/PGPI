@@ -1,27 +1,25 @@
 .inputForm {
-    border-radius: 5px;
-
+  border-radius: 5px;
+  width: 100%;
 }
-.fondo{
-    background-color: #9C9C9C; 
-    border-radius: 15px;
-    opacity: 80%;
-
+.fondo {
+  background-color: #9c9c9c;
+  border-radius: 15px;
+  opacity: 80%;
 }
-.headpanel{
-    color: white;
-   }
-#back{
-    background-image: url(../../../assets/img/Back1.jpeg);
-    height: 100%;
-    width: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
+.headpanel {
+  color: white;
 }
-.botonaccept{
-    margin-bottom: 10px; 
-    margin-top: 10px; 
-    width: 50%;
+#back {
+  //background-image: url(../../../assets/img/Back1.jpeg);
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.botonaccept {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  width: 50%;
 }

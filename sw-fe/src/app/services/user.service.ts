@@ -37,7 +37,10 @@ export class UserService {
   }
 
   getUsuario(userTok: any): Observable<any> {
-    return this.http.post(this.URL + '/users/login', userTok);
+    const headers = new HttpHeaders({
+      'Content-Type': 'aplication/json',
+    });
+    return this.http.post(this.URL + '/users/login', userTok, {headers: headers});
   }
 
   editUser(user: any) {

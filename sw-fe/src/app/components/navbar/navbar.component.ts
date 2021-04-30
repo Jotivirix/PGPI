@@ -1,4 +1,5 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterLinkActive, RouterState } from '@angular/router';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class NavbarComponent implements OnInit, DoCheck {
   shoppingCartItems:any;
   cartItems:Number = 0;
 
-  constructor(private shoppingCartService: ShoppingCartService) {
+  constructor(private shoppingCartService: ShoppingCartService,
+    private router: Router) {
     this.title = 'Smart Warehouse';
   }
   ngDoCheck(): void {
@@ -33,6 +35,11 @@ export class NavbarComponent implements OnInit, DoCheck {
     else{
       this.cartItems = 0;
     }
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigateByUrl('');
   }
 
 }

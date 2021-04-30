@@ -5,8 +5,10 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -19,13 +21,31 @@ export class HomeComponent implements OnInit, DoCheck {
   vacio: boolean = false;
   products: any = [];
   shoppingCart: any = [];
+  role: any;
 
   constructor(
     private productService: ProductService,
-    private shoppingCartService: ShoppingCartService
+    private shoppingCartService: ShoppingCartService,
+    private _userService: UserService,
+    private _route: ActivatedRoute,
+    private _router: Router
   ) {
     this.loading = true;
+    this._userService.getUsuario(localStorage.getItem('token')).subscribe(res => {
+      console.log(res);
+      this.role = res.role
+      console.log(this.role)
+      this._route.data.subscribe((res)=>{
+        if(res.role === this.role){
+          console.log('tu debes estar aqui bro');
+        }
+        else{
+          this._router.navigate(['workerProducts'])
+        }
+      })
+    })
   }
+
   ngDoCheck(): void {
     this.shoppingCart = this.shoppingCartService.getShoppingCart();
   }
@@ -33,7 +53,6 @@ export class HomeComponent implements OnInit, DoCheck {
   ngOnInit(): void {
     this.shoppingCart = this.shoppingCartService.getShoppingCart();
     this.getProducts();
-    console.log('Loaded from DB');
   }
 
   /**
