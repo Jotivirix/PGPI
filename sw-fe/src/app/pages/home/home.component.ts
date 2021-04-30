@@ -48,10 +48,8 @@ export class HomeComponent implements OnInit, DoCheck {
         if (res.status == 'success') {
           if (res.products.length > 0) {
             this.products = res.products;
-            console.log(this.products);
             this.loading = false;
           } else {
-            console.log('No Hay Productos');
             this.products = [];
             this.loading = false;
             this.vacio = true;
@@ -59,7 +57,6 @@ export class HomeComponent implements OnInit, DoCheck {
         }
       },
       (err) => {
-        console.log(err);
         this.products = [];
         this.loading = false;
         this.error = true;

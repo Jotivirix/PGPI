@@ -17,7 +17,6 @@ export class WorkerGuard implements CanActivate, CanActivateChild {
       this.router.navigateByUrl('/login');
       return false;
     } else {
-      console.log('Worker passed!');
       return true;
     }
   }

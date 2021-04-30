@@ -35,7 +35,6 @@ export class OrderPageComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      console.log(params); //log the entire params object
       this.orderToRequest = params['id'];
     });
     this.getOrders();
@@ -51,7 +50,6 @@ export class OrderPageComponent implements OnInit, AfterViewInit {
     await this._ordersService.getOrderById(this.orderToRequest).subscribe(
       (res) => {
         if (res.status == 'success') {
-          console.log(res);
           this.order = res.order;
           this.order.order_id = res.order.id;
           this.orderProducts = res.order.products;
@@ -67,15 +65,11 @@ export class OrderPageComponent implements OnInit, AfterViewInit {
             this.order.city +
             ', ' +
             this.order.country;
-          console.log(this.client);
-          console.log(this.address);
           this.loading = false;
         } else {
-          console.log(res);
         }
       },
       (err) => {
-        console.log(err);
       }
     );
   }
@@ -92,7 +86,6 @@ export class OrderPageComponent implements OnInit, AfterViewInit {
         this.disabledButtons = false;
       },
       (error) => {
-        console.log(error);
       }
     );
   }
@@ -109,7 +102,6 @@ export class OrderPageComponent implements OnInit, AfterViewInit {
         this.disabledButtons = false;
       },
       (error) => {
-        console.log(error);
       }
     );
   }

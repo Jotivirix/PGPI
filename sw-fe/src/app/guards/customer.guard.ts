@@ -17,7 +17,6 @@ export class CustomerGuard implements CanActivate, CanActivateChild {
       this.router.navigateByUrl('/login');
       return false;
     } else {
-      console.log('Customer passed!');
       return true;
     }
   }

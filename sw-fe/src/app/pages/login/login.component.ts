@@ -30,13 +30,10 @@ export class LoginComponent implements OnInit {
     this._authService.login(values).subscribe(
       (res) => {
         if (res.status == 'success') {
-          console.log(res);
-          console.log(this._authService.cUserSubject?.value.role);
           if(this._authService.cUserSubject?.value.role === "customer"){
             this.router.navigate(['products'])
           }
           else{
-            console.log('Eres un jodido worker hermano')
             this.router.navigate(['worker'])
           }
         }
@@ -46,7 +43,6 @@ export class LoginComponent implements OnInit {
         }
       },
       (err) => {
-        console.log(err);
       }
     );
   }
