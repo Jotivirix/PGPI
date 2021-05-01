@@ -37,7 +37,6 @@ export class PedidoPickingComponent implements OnInit {
   columnsToDisplay = ['description', 'amount', 'pasillo', 'estante', 'ready'];
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      console.log(params); //log the entire params object
       this.orderToRequest = params['id'];
     });
     this.getOrders();

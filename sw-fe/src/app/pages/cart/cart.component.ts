@@ -67,11 +67,9 @@ export class CartComponent implements OnInit {
     } else {
       this.noProducts = true;
     }
-    console.log(typeof this.shoppingCart);
   }
 
   removeElements() {
-    console.log('Empty Cart Clicked');
     //Vaciamos el shoppingCartGrouped
     this.shoppingCart = [];
     //Vaciamos la variable de sesion del shoppingcart
@@ -81,7 +79,6 @@ export class CartComponent implements OnInit {
   }
 
   async generateOrder() {
-    console.log(this._authService.cUser)
     this.order.user_id = this._authService.cUser?.id;
     this.shoppingCart.forEach((product: any) => {
       let prod = {
@@ -92,8 +89,6 @@ export class CartComponent implements OnInit {
       this.order.products = this.products;
     });
     this.order = Object.assign(this.order, this.formOrder.value);
-    console.log('Order');
-    console.log(this.order);
 
     this._orderService.makeOrder(this.order).subscribe(
       (res) => {
@@ -106,10 +101,8 @@ export class CartComponent implements OnInit {
           this._shoppingCartService.emptyCart();
           this._router.navigate(['/'])
         }
-        console.log(res);
       },
       (err) => {
-        console.log(err);
       }
     );
   }
@@ -119,12 +112,10 @@ export class CartComponent implements OnInit {
       (res) => {
         if (res.status == 'success') {
           this.shipmentCompanies = res.shipment_companies;
-          console.log(this.shipmentCompanies);
           this.loading = false;
         }
       },
       (err) => {
-        console.log(err);
       }
     );
   }
