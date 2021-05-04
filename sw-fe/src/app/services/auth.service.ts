@@ -78,17 +78,6 @@ export class AuthService {
 
   isWorker(): boolean {
     const user: User = jwtDecode(this.token);
-    console.log(user);
-    console.log(user);
-    console.log(user);
-    console.log(user);
-    console.log(user);
-    console.log(user);
-    console.log(user);
-    console.log(user);
-    console.log(user);
-    console.log(user);
-    console.log(user);
     return user.role === 'worker';
   }
 

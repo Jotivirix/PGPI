@@ -13,6 +13,7 @@ import { PedidoPickingComponent } from './pages/pedido-picking/pedido-picking.co
 import { AuthGuard } from './guards/auth.guard';
 import { WorkerGuard } from './guards/worker.guard';
 import { CustomerGuard } from './guards/customer.guard';
+import { LoadCSVComponent } from './pages/load-csv/load-csv.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,10 @@ const routes: Routes = [
       {
         path: 'pedidoPicking/:id',
         component: PedidoPickingComponent,
+      },
+      {
+        path: 'loadCSV',
+        component: LoadCSVComponent
       },
       {
         path: '**',

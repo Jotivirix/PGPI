@@ -11,6 +11,7 @@
       <a class="nav-link" routerLink="/products" *ngIf="!isWorker">Catalogo</a>
       <a class="nav-link" routerLink="/worker/workerProducts" *ngIf="isWorker">Productos</a>
       <a class="nav-link" routerLink="/worker/pickingOrders" *ngIf="isWorker">Trabajador</a>
+      <a class="nav-link" routerLink="/worker/loadCSV" *ngIf="isWorker">Cargar Productos</a>
       <a class="nav-link" (click)="logout()" routerLink="">Cerrar Sesión</a>
       <a class="nav-link" routerLinkActive="/cart" routerLink="/cart" style="float: right;" *ngIf="!isWorker">
         <mat-icon matBadge="{{cartItems}}" matBadgeColor="warn" class="carritoLink" style="float: right;">shopping_cart</mat-icon>

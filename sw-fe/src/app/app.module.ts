@@ -31,6 +31,8 @@ import { OrderPageComponent } from './pages/order-page/order-page.component';
 import { ReaprovisionamientoComponent } from './pages/reaprovisionamiento/reaprovisionamiento.component'
 import { UserService } from './services/user.service';
 import { PedidoPickingComponent } from './pages/pedido-picking/pedido-picking.component';
+import { LoadCSVComponent } from './pages/load-csv/load-csv.component';
+import { AngularFileUploaderModule } from "angular-file-uploader";
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { PedidoPickingComponent } from './pages/pedido-picking/pedido-picking.co
     PickingOrdersComponent,
     OrderPageComponent,
     ReaprovisionamientoComponent,
-    PedidoPickingComponent
+    PedidoPickingComponent,
+    LoadCSVComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +66,7 @@ import { PedidoPickingComponent } from './pages/pedido-picking/pedido-picking.co
     MatSelectModule,
     MatFormFieldModule,
     MatSortModule,
+    AngularFileUploaderModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent],
