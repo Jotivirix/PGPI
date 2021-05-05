@@ -1,5 +1,8 @@
 <app-navbar></app-navbar>
-<div id="back" class="container-fluid">
+
+<barra-carga *ngIf="!cargado"></barra-carga>
+
+<div id="back" class="container-fluid" *ngIf="cargado; else loadingProducts">
     <div class="m-0 vh-100 row justify-content-center align-items-center">
         <div class="col-auto fondo">
             <div class="text-center headpanel">
@@ -23,3 +26,5 @@
         </div>
     </div>
 </div>
+
+<ng-template #loadingProducts class="text-center">Cargando Productos...</ng-template>

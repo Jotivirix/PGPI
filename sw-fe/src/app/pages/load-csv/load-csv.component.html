@@ -1,5 +1,7 @@
 <app-navbar></app-navbar>
 
+<barra-carga *ngIf="loadingCSV"></barra-carga>
+
 <div class="container-fluid">
   <br>
   <br>
@@ -12,23 +14,23 @@
   </div>
   <br>
   <br>
-  <form [formGroup]="fileForm" (ngSubmit)="uploadCSV();">
+  <form (ngSubmit)="uploadCSV();">
     <div class="row">
-      <div class="col-5"></div>
-      <div class="col-2 text-center">
+      <div class="col-4"></div>
+      <div class="col-4 text-center">
         <input type="file" name="CSVfile" accept=".csv" #fileUpload (change)="selectFile($event)">
       </div>
-      <div class="col-5"></div>
+      <div class="col-4"></div>
     </div>
     <br>
     <br>
     <br>
     <div class="row">
-      <div class="col-4"></div>
-      <div class="col-4">
-        <button type="submit" class="btn btn-md btn-info">Upload File</button>
+      <div class="col-5"></div>
+      <div class="col-2">
+        <button type="submit" class="btn btn-md btn-success" style="width: 100%;" [disabled]=!enabledUpload>Upload File</button>
       </div>
-      <div class="col-4"></div>
+      <div class="col-5"></div>
     </div>
   </form>
 </div>

@@ -13,16 +13,16 @@ export class ReaprovisionamientoComponent implements OnInit {
   products:any;
   producto:any;
   id:String= '';
+  cargado: boolean = false;
+
   constructor(private productService: ProductService,private _builder: FormBuilder) {
     this.signupForm = this._builder.group({
       producto: ['']
     });
    }
-  
+
   ngOnInit(): void {
-    
     this.getProducts();
-    
   }
 
   async getProducts(): Promise<any> {
@@ -32,6 +32,7 @@ export class ReaprovisionamientoComponent implements OnInit {
           if (res.products.length > 0) {
             this.products = res.products;
             console.log(this.products)
+            this.cargado = true;
           } else {
             console.log('No Hay Productos');
             this.products = [];
@@ -47,10 +48,10 @@ export class ReaprovisionamientoComponent implements OnInit {
   findProducto(ids:string)
 {
   return this.products.id === ids;
-} 
+}
 
 updateProductos(){
-    
+
     console.log(this.signupForm.value.producto)
     //this.producto = this.products.find();
     this.producto = this.products[this.signupForm.value.producto - 1]

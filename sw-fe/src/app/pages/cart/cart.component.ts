@@ -35,6 +35,7 @@ export class CartComponent implements OnInit {
   shipmentCompanies: any = [];
   loading: boolean = true;
   noProducts: boolean = false;
+  pedidoRealizado:boolean = false;
 
   constructor(
     private _shoppingCartService: ShoppingCartService,
@@ -92,6 +93,7 @@ export class CartComponent implements OnInit {
 
     this._orderService.makeOrder(this.order).subscribe(
       (res) => {
+        this.pedidoRealizado = true;
         this.loading = true;
         if (res['status'] == 'success') {
           //Vaciamos carrito
@@ -101,8 +103,14 @@ export class CartComponent implements OnInit {
           this._shoppingCartService.emptyCart();
           this._router.navigate(['/'])
         }
+        else{
+          this.pedidoRealizado = false;
+          alert('Error al realizar el pedido');
+        }
       },
       (err) => {
+        alert('Fatal Error');
+        console.log(err);
       }
     );
   }

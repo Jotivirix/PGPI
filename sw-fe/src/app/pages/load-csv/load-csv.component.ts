@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CsvService } from 'src/app/services/csv.service';
 
 @Component({
@@ -9,44 +10,40 @@ import { CsvService } from 'src/app/services/csv.service';
 })
 export class LoadCSVComponent implements OnInit {
   CSVFile: File;
-  fileForm: FormGroup;
+  loadingCSV: boolean = false;
+  enabledUpload: boolean = false;
 
-  constructor(private _csvService:CsvService, private formBuilder: FormBuilder) {
+  constructor(private _csvService: CsvService, private router: Router) {
     this.CSVFile = new File([], '');
-    this.fileForm = this.formBuilder.group({
-      profile: ['']
-    });
-  }
-
-  setFile(file:any){
-    console.log(file);
   }
 
   ngOnInit(): void {}
 
-  selectFile(event:any){
-    console.log(event);
-    console.log(event.target.files[0]);
+  selectFile(event: any) {
     this.CSVFile = event.target.files[0];
-    console.log(this.CSVFile);
+    this.enabledUpload = true;
   }
 
-  uploadCSV(){
-
+  uploadCSV() {
+    this.loadingCSV = true;
+    this.enabledUpload = false;
     const formData = new FormData();
-    formData.append('providers_products',this.CSVFile);
-
-    this._csvService.uploadCSV(formData).subscribe((res)=>{
-      console.log(res);
-    },(err) => {
-      console.log(err);
-    })
-  }
-
-  onFileSelect(event:any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.fileForm.get('file')!.setValue(file);
-    }
+    formData.append('providers_products', this.CSVFile);
+    this._csvService.uploadCSV(formData).subscribe(
+      (res) => {
+        if (res.status === 'success') {
+          this.loadingCSV = false;
+          alert('Productos cargados correctamente');
+          this.router.navigate(['worker'])
+        } else {
+          alert('Error en el formato del CSV');
+          this.router.navigate(['worker/loadCSV'])
+        }
+      },
+      (err) => {
+        alert('Error en la conexión con la base de datos');
+        this.router.navigate(['worker/loadCSV'])
+      }
+    );
   }
 }
