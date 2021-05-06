@@ -60,6 +60,7 @@ export class ProductComponent implements OnInit {
           this.totalAmount = ((res.products['stock'] + res.products['picking']) > 20) ? 20 : (res.products['stock'] + res.products['picking']);
           console.log(this.totalAmount);
           this.loading = false;
+          console.log(this.product);
         }
       },
       (error) => {
