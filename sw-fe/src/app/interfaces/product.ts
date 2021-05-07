@@ -1,11 +1,11 @@
 export interface Product {
   reference: string,
   description: string,
-  stock: Number;
-  picking: Number;
-  warning_stock: Number;
+  stock: number;
+  picking: number;
+  warning_stock_limit: number;
   image: string;
-  provider_id: Number;
+  provider_id: number;
   location_id: string;
 }
 

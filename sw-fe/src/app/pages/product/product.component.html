@@ -20,32 +20,43 @@
   <br>
 
   <div class="row">
-    <div class="col-4"></div>
-    <div class="col-4">
+    <div class="col-2"></div>
+    <div class="col-8">
       <div class="row">
         <div class="col-2"></div>
         <div class="col-8">
-          <div *ngIf="totalAmount > 0;else noStock">
+          <div *ngIf="totalAmount > product.warning_stock_limit">
             <form [formGroup]="amountForm" (ngSubmit)="addToCart();">
               <h4>Seleccione el numero de productos:</h4>
-              <select class="btn btn-md btn-primary" style="margin-bottom: 2em; width: 60%;"
-                formControlName="amount">
+              <select class="btn btn-md btn-primary" style="margin-bottom: 2em; width: 60%;" formControlName="amount">
                 <option class="desplegableProductos" value="{{i+1}}"
                   *ngFor="let n of numSequence(totalAmount); let i = index;">{{i+1}}</option>
               </select>
               <br>
-              <button type="submit" style="width: 100%;" class="btn btn-lg btn-success">Añadir al carrito</button>
+              <button type="submit" style="width: 100%;" class="btn btn-md btn-success">Añadir al carrito</button>
             </form>
           </div>
-
-          <ng-template #noStock>
-            <h2>No hay stock temporalmente</h2>
-          </ng-template>
+          <div *ngIf="totalAmount >  0 && totalAmount <= product.warning_stock_limit">
+            <h2>ÚLTIMAS UNIDADES</h2>
+            <br>
+            <form [formGroup]="amountForm" (ngSubmit)="addToCart();">
+              <h4>Seleccione el numero de productos:</h4>
+              <select class="btn btn-md btn-primary" style="margin-bottom: 2em; width: 60%;" formControlName="amount">
+                <option class="desplegableProductos" value="{{i+1}}"
+                  *ngFor="let n of numSequence(totalAmount); let i = index;">{{i+1}}</option>
+              </select>
+              <br>
+              <button type="submit" style="width: 100%;" class="btn btn-md btn-warning">Añadir al carrito</button>
+            </form>
+          </div>
+          <div *ngIf="totalAmount <=  0">
+            <h4>No hay stock temporalmente</h4>
+          </div>
         </div>
         <div class="col-2"></div>
       </div>
     </div>
-    <div class="col-4"></div>
+    <div class="col-2"></div>
   </div>
 
 </div>

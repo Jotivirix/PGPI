@@ -15,6 +15,7 @@ export class ProductComponent implements OnInit {
   idProduct: number;
   amount: number = 0;
   totalAmount: number = 0;
+  limit: number = 0;
   amountForm: FormGroup;
   order: any = [];
   cart: any = [];
@@ -24,7 +25,7 @@ export class ProductComponent implements OnInit {
     description: '',
     stock: 0,
     picking: 0,
-    warning_stock: 0,
+    warning_stock_limit: 0,
     image: '',
     provider_id: 0,
     location_id: '',
@@ -57,7 +58,23 @@ export class ProductComponent implements OnInit {
       (res) => {
         if (res.status == 'success') {
           this.product = res.products;
-          this.totalAmount = ((res.products['stock'] + res.products['picking']) > 20) ? 20 : (res.products['stock'] + res.products['picking']);
+          //Miramos si el producto está en el carrito
+          let index = this.cart.findIndex(
+            (x: { reference: string }) => x.reference === this.product.reference
+          );
+          console.log(index);
+          if (index !== -1) {
+            this.totalAmount =
+              res.products['stock'] +
+              res.products['picking'] -
+              this.cart[index].amount;
+            this.totalAmount = this.totalAmount > 20 ? 20 : this.totalAmount;
+          } else {
+            this.totalAmount =
+              res.products['stock'] + res.products['picking'] > 20
+                ? 20
+                : res.products['stock'] + res.products['picking'];
+          }
           console.log(this.totalAmount);
           this.loading = false;
           console.log(this.product);
@@ -87,11 +104,24 @@ export class ProductComponent implements OnInit {
 
     if (index !== -1) {
       this.cart[index].amount += order.amount;
-    }
-    else{
+    } else {
       this.cart.push(order);
     }
-    this.totalAmount -= order.amount;
+    this.limit += order.amount;
+    console.log(this.limit);
+    if (index !== -1) {
+      this.totalAmount =
+        this.product['stock'] +
+        this.product['picking'] -
+        this.cart[index].amount;
+      this.totalAmount = this.totalAmount > 20 ? 20 : this.totalAmount;
+    } else {
+      this.totalAmount =
+      this.product['stock'] + this.product['picking'] > 20
+          ? 20
+          : this.product['stock'] + this.product['picking'];
+    }
+    console.log(this.totalAmount);
     //Pasamos a sesion el carrito
     localStorage.setItem('shoppingCart', JSON.stringify(this.cart));
     console.log(this.cart);
