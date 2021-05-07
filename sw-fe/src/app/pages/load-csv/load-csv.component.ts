@@ -38,12 +38,13 @@ export class LoadCSVComponent implements OnInit {
         } else {
           console.log(res);
           alert('Error en el formato del CSV \n' + res.message);
-          this.router.navigate(['worker/loadCSV'])
+          this.router.navigate(['worker'])
         }
       },
       (err) => {
+        console.log(err);
         alert('Error en la conexión con la base de datos');
-        this.router.navigate(['worker/loadCSV'])
+        this.router.navigate(['worker'])
       }
     );
   }
