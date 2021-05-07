@@ -6,6 +6,7 @@ use App\Models\Location;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Provider;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -29,7 +30,7 @@ class CSVController extends Controller
                 'status' => 'error',
                 'message' => 'No se pueden introducir más de 50 productos, revise el fichero'
             );
-    
+
             return response()->json($response);
         }
 
@@ -54,7 +55,7 @@ class CSVController extends Controller
                     ->first();
 
                 if (!$provider) {
-                    DB::table('providers')->insertOrIgnore([
+                    DB::table('providers')->insert([
                         ['name' => $line_splitted[0]]
                     ]);
 
@@ -68,7 +69,7 @@ class CSVController extends Controller
                     $prev_aisle = $provider->id;
                 }
 
-                DB::table('locations')->insertOrIgnore([
+                DB::table('locations')->insert([
                     [
                         'aisle' => $provider->id,
                         'position' => $product_position
@@ -82,18 +83,35 @@ class CSVController extends Controller
 
                 $product_position++;
 
-                DB::table('products')->insertOrIgnore([
-                    [
-                        'reference' => 'X' . $provider->id . '_' . $line_splitted[1],
-                        'description' => $line_splitted[1],
-                        'picking' => 20,
-                        'stock' => 20,
-                        'warning_stock_limit' => $line_splitted[2],
-                        'image' => 'default.jpg',
-                        'provider_id' => $provider->id,
-                        'location_id' => $location->id,
-                    ]
-                ]);
+                try {
+                    DB::table('products')->insert([
+                        [
+                            'reference' => 'X' . $provider->id . '_' . $line_splitted[1],
+                            'description' => $line_splitted[1],
+                            'picking' => 20,
+                            'stock' => 20,
+                            'warning_stock_limit' => $line_splitted[2],
+                            'image' => 'default.jpg',
+                            'provider_id' => $provider->id,
+                            'location_id' => $location->id,
+                        ]
+                    ]);
+                } catch (QueryException $e) {
+                    DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+                    DB::table('order_product')->delete();
+                    Location::truncate();
+                    Provider::truncate();
+                    Product::truncate();
+                    Order::truncate();
+                    DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+                    $response = array(
+                        'status' => 'error',
+                        'message' => 'Hay referencias duplicadas'
+                    );
+
+                    return response()->json($response);
+                }
             }
 
             $line_no++;
