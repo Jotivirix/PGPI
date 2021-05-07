@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RegisterComponent implements OnInit {
 
-  
+
   signupForm :FormGroup;
   loading:boolean = false;
   errorRes:string = '';
@@ -29,18 +29,19 @@ export class RegisterComponent implements OnInit {
       country: ['',Validators.required]
     })
   }
-  ngOnInit(): void { 
+  ngOnInit(): void {
   }
 
   enviar(values:any){
-    
     this.loading = true;
     this.userService.register(values).subscribe(
       (res)=>{
-        if(res.status = "success"){
+        if(res.code === 200){
+          alert('Registrado satisfactoriamente');
           this.router.navigate(['/login']);
           console.log(res);
         }else{
+          alert(res.message);
           this.errorRes = res.message;
           this.loading = false;
           this.error = true;
@@ -50,5 +51,5 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
- 
+
 }
