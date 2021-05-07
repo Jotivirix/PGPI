@@ -14,6 +14,25 @@ class CSVController extends Controller
 {
     public function importCSV(Request $request)
     {
+        $file = $request->file('providers_products');
+        $destinationPath = 'database/seeds/csvs';
+        $file->move($destinationPath, 'providers_products.csv');
+
+        $file = fopen($destinationPath . '/providers_products.csv', 'r');
+        $linecount = 0;
+        while (($line = fgetcsv($file)) !== FALSE) {
+            $linecount++;
+        }
+
+        if ($linecount > 51) {
+            $response = array(
+                'status' => 'error',
+                'message' => 'No se pueden introducir más de 50 productos, revise el fichero'
+            );
+    
+            return response()->json($response);
+        }
+
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('order_product')->delete();
         Location::truncate();
@@ -21,10 +40,6 @@ class CSVController extends Controller
         Product::truncate();
         Order::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
-        $file = $request->file('providers_products');
-        $destinationPath = 'database/seeds/csvs';
-        $file->move($destinationPath, 'providers_products.csv');
 
         $file = fopen($destinationPath . '/providers_products.csv', 'r');
         $line_no = 0;
