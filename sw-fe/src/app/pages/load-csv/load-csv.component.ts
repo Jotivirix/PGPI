@@ -36,7 +36,8 @@ export class LoadCSVComponent implements OnInit {
           alert('Productos cargados correctamente');
           this.router.navigate(['worker'])
         } else {
-          alert('Error en el formato del CSV');
+          console.log(res);
+          alert('Error en el formato del CSV \n' + res.message);
           this.router.navigate(['worker/loadCSV'])
         }
       },
