@@ -78,7 +78,7 @@ class OrderController extends Controller
 
                     if (!$available) {
                         $all_products_available = false;
-                        $message = 'There are not ' . $product_decoded->amount . ' units of product ' . $product_decoded->reference;
+                        $message = 'No hay ' . $product_decoded->amount . ' unidades del producto ' . $product_decoded->reference;
                     }
                 }
             }
