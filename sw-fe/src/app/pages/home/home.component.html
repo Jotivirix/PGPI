@@ -36,7 +36,7 @@
                   <a href="/product/{{prod.id}}" class="btn btn-md btn-primary btnProd">Saber más</a>
                 </div>
                 <div class="col-10"
-                  *ngIf="(prod.stock + prod.picking) < prod.warning_stock_limit && (prod.stock + prod.picking) > 0">
+                  *ngIf="(prod.stock + prod.picking) <= prod.warning_stock_limit && (prod.stock + prod.picking) > 0">
                   <a href="/product/{{prod.id}}" class="btn btn-sm btn-warning btnProd">Últimas Unidades</a>
                   <p>Pedido Realizado a Proveedor</p>
                 </div>

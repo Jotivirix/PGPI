@@ -81,6 +81,7 @@ export class CartComponent implements OnInit {
 
   async generateOrder() {
     this.order.user_id = this._authService.cUser?.id;
+    this.products = [];
     this.shoppingCart.forEach((product: any) => {
       let prod = {
         reference: product.reference,
@@ -90,11 +91,11 @@ export class CartComponent implements OnInit {
       this.order.products = this.products;
     });
     this.order = Object.assign(this.order, this.formOrder.value);
-
+    console.log(this.order);
+    this.loading = true;
     this._orderService.makeOrder(this.order).subscribe(
       (res) => {
         this.pedidoRealizado = true;
-        this.loading = true;
         if (res['status'] == 'success') {
           //Vaciamos carrito
           localStorage.removeItem('shoppingCart');
@@ -105,12 +106,21 @@ export class CartComponent implements OnInit {
         }
         else{
           this.pedidoRealizado = false;
-          alert('Error al realizar el pedido');
+          console.log(res);
+          let index = this.shoppingCart.findIndex(
+            (x: { reference: string }) => x.reference === res.reference
+          );
+          this.shoppingCart[index].amount = res.max_units;
+          localStorage.setItem('shoppingCart',JSON.stringify(this.shoppingCart));
+          alert('Error al realizar el pedido.\n'+res.message+
+          '\nSe establece el numero de unidades de '+res.reference+' a '+res.max_units);
         }
+        this.loading = false;
       },
       (err) => {
-        alert('Fatal Error');
+        alert('Se ha producido un error con la conexión. Compruébela e inténtelo más tarde');
         console.log(err);
+        this.loading = false;
       }
     );
   }

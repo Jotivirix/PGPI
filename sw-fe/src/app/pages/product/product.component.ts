@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 import { Product } from 'src/app/interfaces/product';
@@ -35,7 +35,8 @@ export class ProductComponent implements OnInit {
     private route: ActivatedRoute,
     private _productService: ProductService,
     private _shoppingCartService: ShoppingCartService,
-    private _builder: FormBuilder
+    private _builder: FormBuilder,
+    private _router: Router
   ) {
     this.loading = true;
     this.idProduct = 0;
@@ -62,13 +63,17 @@ export class ProductComponent implements OnInit {
           let index = this.cart.findIndex(
             (x: { reference: string }) => x.reference === this.product.reference
           );
-          console.log(index);
           if (index !== -1) {
-            this.totalAmount =
-              res.products['stock'] +
-              res.products['picking'] -
-              this.cart[index].amount;
-            this.totalAmount = this.totalAmount > 20 ? 20 : this.totalAmount;
+            console.log(this.cart[index].amount);
+            if (this.cart[index].amount >= 20) {
+              this.totalAmount = -1;
+            } else {
+              this.totalAmount =
+                res.products['stock'] +
+                res.products['picking'] -
+                this.cart[index].amount;
+              this.totalAmount = this.totalAmount > 20 ? 20 : this.totalAmount;
+            }
           } else {
             this.totalAmount =
               res.products['stock'] + res.products['picking'] > 20
@@ -117,7 +122,7 @@ export class ProductComponent implements OnInit {
       this.totalAmount = this.totalAmount > 20 ? 20 : this.totalAmount;
     } else {
       this.totalAmount =
-      this.product['stock'] + this.product['picking'] > 20
+        this.product['stock'] + this.product['picking'] > 20
           ? 20
           : this.product['stock'] + this.product['picking'];
     }
@@ -125,5 +130,6 @@ export class ProductComponent implements OnInit {
     //Pasamos a sesion el carrito
     localStorage.setItem('shoppingCart', JSON.stringify(this.cart));
     console.log(this.cart);
+    this._router.navigateByUrl('cart');
   }
 }

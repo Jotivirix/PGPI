@@ -2,17 +2,17 @@
 
 <barra-carga *ngIf="!cargado"></barra-carga>
 
-<div id="back" class="container-fluid" *ngIf="cargado; else loadingProducts">
+<div id="back" class="container-fluid" *ngIf="cargado">
     <div class="m-0 vh-100 row justify-content-center align-items-center">
         <div class="col-auto fondo">
             <div class="text-center headpanel">
                 <h3>Reaprovisionamiento</h3>
             </div>
-            <form [formGroup]="signupForm" (ngSubmit)="updateProductos()">
+            <form [formGroup]="reaprovisionamientoForm" (ngSubmit)="updateProductos()">
             <div class="row">
                 <div class="col-10">
                     <select formControlName="producto">
-                        <option  *ngFor="let prod of products" value="{{prod.id}}">{{prod.reference}}</option>
+                        <option  *ngFor="let prod of products" value="{{prod.reference}}">{{prod.reference}}</option>
                     </select>
                 </div>
                 <div class="col-2">
@@ -20,11 +20,9 @@
                 </div>
             </div>
             <div class="row align-items-center justify-content-center">
-                <button type="submit" class="btn btn-primary botonaccept">Agregar</button>
+                <button type="submit" class="btn btn-primary botonaccept" [disabled]="reaprovisionamientoForm.invalid">Agregar</button>
             </div>
             </form>
         </div>
     </div>
 </div>
-
-<ng-template #loadingProducts class="text-center">Cargando Productos...</ng-template>
