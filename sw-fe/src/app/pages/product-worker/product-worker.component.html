@@ -34,7 +34,7 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="location">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Localización</th>
-      <td mat-cell *matCellDef="let element">{{ element.location_id }}</td>
+      <td mat-cell *matCellDef="let element">Pasillo: {{ element.location.aisle }} Posición: {{element.location.position}}</td>
     </ng-container>
 
     <ng-container matColumnDef="provider">
