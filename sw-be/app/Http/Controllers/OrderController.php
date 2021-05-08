@@ -79,6 +79,9 @@ class OrderController extends Controller
                     if (!$available) {
                         $all_products_available = false;
                         $message = 'No hay ' . $product_decoded->amount . ' unidades del producto ' . $product_decoded->reference;
+                        $reference = $product_decoded->reference;
+                        $product_obj = Product::find($product_decoded->reference, 'reference');
+                        $max_units = $product_obj->picking + $product_obj->stock;
                     }
                 }
             }
@@ -101,7 +104,10 @@ class OrderController extends Controller
             } else {
                 $response = array(
                     'status' => 'error',
-                    'message' => $message
+                    'message' => $message,
+                    'reference' => $reference,
+                    'max_units' => $max_units,
+
                 );
             }
         }
