@@ -68,7 +68,6 @@ export class PickingOrdersComponent implements OnInit, AfterViewInit {
   }
 
   showAll() {
-    console.log('Pending');
     this.getOrders();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

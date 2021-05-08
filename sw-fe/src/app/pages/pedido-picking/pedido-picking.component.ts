@@ -20,9 +20,7 @@ export class PedidoPickingComponent implements OnInit {
     private _ordersService: OrderService,
     private route: ActivatedRoute,
     private router: Router
-  ) {
-    console.log(this.order);
-  }
+  ) {}
 
   orderUpdate: any;
   length: number = 0;
@@ -52,7 +50,27 @@ export class PedidoPickingComponent implements OnInit {
           this.orderProducts = res.order.products;
           this.dataSource.data = this.orderProducts;
           this.client = this.order.user.name + ' ' + this.order.user.surname;
-          this.loading = false;
+          //Si esta en pending, pasa a in progress
+          if (this.order.status === 'pending') {
+            this.order.status = 'in progress';
+            //Actualizamos el pedido al estado en proceso
+            this._ordersService
+              .updateOrder(this.order, this.order.id)
+              .subscribe(
+                (res) => {
+                  if(res.status === 'success'){
+                  console.log(res);
+                  console.log('Estado actualizado');
+                  }
+                  else{
+                    console.log('Erro actualizando el estado del pedido');
+                  }
+                },
+                (err) => {
+                  console.log(err);
+                }
+              );
+          }
           if (this.order.status == 'delivered') {
             this.estadoOk = true;
             this.estadoKo = false;
@@ -65,9 +83,9 @@ export class PedidoPickingComponent implements OnInit {
           } else {
             this.estadoKo = true;
           }
-          console.log(this.client);
-          console.log(this.order.products.length);
-        } else {
+          this.loading = false;
+        }
+        else {
           console.log(res);
           this.loading = false;
         }
@@ -95,7 +113,6 @@ export class PedidoPickingComponent implements OnInit {
     this.router.navigate(['/pickingOrders']);
   }
   updateProducto() {
-    //this.orderUpdate = JSON.parse('{"id":"'+this.order.id+'","user_id":"'+this.order.user_id+'","datetime":"'+ this.order.datetime+'","status":"pending","number":'+this.order.number+',"street":"'+this.order.street+'","city":"'+this.order.number+'","zip_code":"'+this.order.zip_code+'","country":"'+this.order.country+'","shipment_company_id":"'+this.order.shipment_company_id+'"}');
     if (this.num_checks == this.order.products.length) {
       this.errorUpdate = false;
       this.loading = true;

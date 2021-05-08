@@ -32,7 +32,7 @@ export class OrderService {
   generateDeliveryNote(order:any):Observable<any> {
     return this.http.post(this.URL+'/pdf/delivery_note',order,{ responseType: 'blob' });
   }
-  updateOrder(order:any,idOrder:number){
+  updateOrder(order:any,idOrder:number):Observable<any>{
     return this.http.put(this.URL+'/orders/'+idOrder,order);
   }
 
